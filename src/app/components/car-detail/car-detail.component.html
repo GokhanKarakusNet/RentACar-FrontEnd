@@ -1,0 +1,101 @@
+<div class="subheader">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="subheader-title text-center text-white">Ara&ccedil; Detaylar&#305;</h4>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="main-content">
+    <div class="container">
+        <div class="row divider"></div>
+
+        <div class="row">
+
+            <div class="col-12 col-sm-12 col-md-12">
+                <div class="row">
+                    <div class="col-12 col-md-9">
+                        <h3 class="main-title text-left">{{car.brandName}} {{car.carName}}
+                        </h3>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3">
+                        <span class="adverts_price_wrapper">
+
+                            <h5>
+                                Fiyat : {{car.dailyPrice}} TL / Gün
+                            </h5>
+                        </span>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div *ngFor="let image of car.carImages let i = index"
+                                            [ngClass]="getSliderClassName(i)">
+                                            <img src="https://localhost:44342/Resources/Images/{{ image.imagePath }}"
+                                                class="w-100 rounded" alt="car-image" />
+                                        </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row divider"></div>
+                       
+
+
+                    </div>
+
+                    <div class="col-12 col-md-4">
+
+
+                        <div class="card">
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item"><span class="float-right">Araç Detayları</span>
+                                </li>
+
+
+                                <li class="list-group-item">Marka:<span class="float-right">{{car.brandName}}</span>
+                                </li>
+
+                                <li class="list-group-item">Model:<span class="float-right">{{car.modelYear}}</span>
+                                </li>
+
+                                <li class="list-group-item">Renk:<span class="float-right">{{car.colorName | titlecase}}</span></li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row pb-2">
+                    <div class="col-12 col-md-12">
+                        <div>
+                            <h5 class="sub-title">Açıklama</h5>
+                            <hr>
+                        </div>
+                        <p>{{car.description}}</p>
+
+                    </div>
+
+
+                </div>

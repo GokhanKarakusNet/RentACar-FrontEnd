@@ -15,7 +15,7 @@
   <div class="col-md-9">
     <div *ngIf="dataLoaded==false" class="spinner-border text-dark" role="status">
       <span class="visually-hidden">Loading...</span>
-  </div>
+    </div>
     <div class="row">
       <div class="col-9 col-sm-6 col-md-4 col-lg-4 text-center" *ngFor="let car of cars">
 
@@ -34,7 +34,7 @@
               </h6>
                 
   
-              <a href="renault-clio-4.html" class="btn btn-dark">Detaylar</a>
+              <a routerLink = "/car-detail/{{car.carId}}" class="btn btn-dark">Detaylar</a>
             </div>
           </a>
         </div>

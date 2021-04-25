@@ -27,7 +27,7 @@
 
 
 
-  <div class="col-md-12">
+
 <ul class="list-group">
   <li routerLink="/cars" (click)="clearCurrentBrand()" [class]="getAllBrandClass()">Tüm Markalar</li>
   <li (click)="setCurrentBrand(brand.brandId)" routerLink="/cars/brand/{{brand.brandId}}" *ngFor="let brand of brands"
@@ -35,5 +35,5 @@
     {{brand.brandName | titlecase}}</li>
 
 </ul>
-</div>
+
 

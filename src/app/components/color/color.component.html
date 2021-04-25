@@ -1,4 +1,4 @@
-<div class="col-md-12">
+
 
 <ul class="list-group">
     <li routerLink="/cars" (click)="clearCurrentColor()" [class]="getAllColorClass()">Tüm Renkler</li>
@@ -8,4 +8,3 @@
     [class]="getCurrentColorClass(color.colorId)">
     {{color.colorName | titlecase}}</li>
   </ul>
-</div>

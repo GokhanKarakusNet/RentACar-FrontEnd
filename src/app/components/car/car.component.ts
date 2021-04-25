@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CarService } from 'src/app/services/car.service';
 import { environment } from 'src/environments/environment';
@@ -18,7 +19,9 @@ export class CarComponent implements OnInit {
 
   constructor(
     private carService: CarService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private toastrService:ToastrService,
+    private route:Router,
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +61,12 @@ export class CarComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
+
+  // getRoute(carId:number)
+  // {
+  //   this.route.navigateByUrl("/cars/"+carId+"/detail");
+  // }
+
   
 
 }
