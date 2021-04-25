@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-12 col-md-12">
+      <h3 class="main-title text-center">Müşterilerimiz</h3>
+    </div>
+  </div>
+  <hr>
+
+
+  <div class="row">
+   
+      <div class="col-md-12 text-dark">
+        <div *ngIf="dataLoaded==false" class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+      <table *ngIf="dataLoaded==true" class="table table-striped table-light table-hover">
+        <thead>
+            <tr>
+                <th>Müşteri Adı</th>
+                <th>Firma Adı</th>
+                <th>e-Mail</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let customer of customers" routerLink = "/customers/customerDetail/{{customer.customerId}}">
+                <td>{{customer.firstName}} {{customer.lastName}}</td>
+                <td>{{customer.companyName}}</td>
+                <td>{{customer.eMail}}</td>
+                <td></td>
+                <td><i class="fas fa-list"></i></td>
+                
+            </tr>
+        </tbody>
+    </table>
+      </div>
+</div>

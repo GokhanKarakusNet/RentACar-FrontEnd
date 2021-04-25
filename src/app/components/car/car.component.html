@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-12 col-md-12">
+    <h3 class="main-title text-center">Araçlarımız</h3>
+  </div>
+</div>
+<hr>
+
+<div class="row">
+  <div class="col-md-3">
+    <app-brand></app-brand>
+    <div class="row divider"></div>
+    <app-color></app-color>
+  </div>
+
+  <div class="col-md-9">
+    <div *ngIf="dataLoaded==false" class="spinner-border text-dark" role="status">
+      <span class="visually-hidden">Loading...</span>
+  </div>
+    <div class="row">
+      <div class="col-9 col-sm-6 col-md-4 col-lg-4 text-center" *ngFor="let car of cars">
+
+        <div class="card">
+          <a href="#">
+            <img class="card-img-top opacity" src="https://localhost:44342/Resources/Images/{{car.carImages[0]?.imagePath}}" alt="{{car.description}}">
+            <div class="card-body">
+              <div class="bgcolor">
+                <h5 class="card-title title text-white">{{car.brandName}} {{car.carName}}</h5>
+              </div>
+  
+              
+              <h6 class="product-detail text-center">
+                Fiyat : {{car.dailyPrice}} TL / Gün <br>
+                Renk : {{car.colorName | titlecase}}
+              </h6>
+                
+  
+              <a href="renault-clio-4.html" class="btn btn-dark">Detaylar</a>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+
+
+
+    </div>
+  </div>
+
+</div>
