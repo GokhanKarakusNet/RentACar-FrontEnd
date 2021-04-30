@@ -13,33 +13,86 @@
   </div>
 
   <div class="col-md-9">
+
+
+    <input style="background-color:cyan" type="text" [(ngModel)]="filterText" class="form-control" id="filterText"
+      placeholder="Araç ara">
+
+    <div *ngIf="filterText" class="alert alert-primary">
+      {{filterText}} aradınız
+    </div>
+    <mat-form-field appearance="fill" style="margin-right: 5px;">
+      <mat-label>Marka Seçiniz</mat-label>
+      <mat-select [(value)]="selectedBrand" disableRipple>
+        <mat-option [value]="brand.brandId" *ngFor="let brand of brands">{{brand.brandName}}</mat-option>
+
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="margin-right: 15px;">
+      <mat-label>Renk Seçiniz</mat-label>
+      <mat-select [(value)]="selectedColor" disableRipple>
+        <mat-option [value]="color.colorId" *ngFor="let color of colors">{{color.colorName | titlecase}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" (click)="getCarsByFilter()">Filtrele</button>
+    
+
+    <!-- <button *ngIf="authService.roleControl() == true" mat-flat-button color="primary" style="margin-left: 10px;" routerLink="/cars/add">Araç Ekle</button>  -->
+
+
+    <div class="row divider"></div>
     <div *ngIf="dataLoaded==false" class="spinner-border text-dark" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
     <div class="row">
-      <div class="col-9 col-sm-6 col-md-4 col-lg-4 text-center" *ngFor="let car of cars">
+      <div class="col-9 col-sm-6 col-md-4 col-lg-4 text-center" *ngFor="let car of cars | carFilter:filterText">
 
         <div class="card">
-          <a href="#">
-            <img class="card-img-top opacity" src="https://localhost:44342/Resources/Images/{{car.carImages[0]?.imagePath}}" alt="{{car.description}}">
-            <div class="card-body">
-              <div class="bgcolor">
-                <h5 class="card-title title text-white">{{car.brandName}} {{car.carName}}</h5>
-              </div>
-  
-              
-              <h6 class="product-detail text-center">
-                Fiyat : {{car.dailyPrice}} TL / Gün <br>
-                Renk : {{car.colorName | titlecase}}
-              </h6>
-                
-  
-              <a routerLink = "/car-detail/{{car.carId}}" class="btn btn-dark">Detaylar</a>
+
+
+
+          <div *ngIf="(car.carImages[0]?.imagePath!=null) ; then thenBlock else elseBlock"></div>
+
+
+          <ng-template #thenBlock>
+            <img class="card-img-top opacity"
+              src="https://localhost:44342/Resources/Images/{{car.carImages[0]?.imagePath}}" alt="{{car.description}}">
+          </ng-template>
+          <ng-template #elseBlock>
+            <img class="card-img-top opacity" src="https://localhost:44342/Resources/Images/no-image.png"
+              alt="{{car.description}}">
+          </ng-template>
+
+
+
+
+          <div class="card-body">
+            <div class="bgcolor">
+              <h5 class="card-title title text-white">{{car.brandName}} {{car.carName}}</h5>
             </div>
-          </a>
+
+
+            <h4 class="text-center">
+             <b>Fiyat :</b> {{car.dailyPrice}} TL / Gün <br>
+             <b>Renk :</b> {{car.colorName | titlecase}}
+            </h4>
+
+            <div class="container">
+              <button mat-raised-button color="primary" (click)="getRoute(car.carId)" class="btn btn-dark">Detaylar</button>
+            </div>
+          </div>
+
+
         </div>
+
+
+
+
+
       </div>
-      
+      <h2 *ngIf="control" class="mt-4">Filtreye Uygun Araç Bulunamadı</h2>
 
 
 

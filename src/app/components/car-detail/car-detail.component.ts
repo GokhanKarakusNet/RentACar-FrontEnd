@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CarImages } from 'src/app/models/carImage';
@@ -17,18 +17,19 @@ export class CarDetailComponent implements OnInit {
   constructor(private carService: CarService,
     private activatedRoute: ActivatedRoute,
     private toastrService:ToastrService,
+    private route:Router,
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       if(params["carId"]){
-        this.getCarsById(params["carId"]);
+        this.getCarById(params["carId"]);
       }
     })
   }
 
-  getCarsById(carId: number) {
-    this.carService.getCarsById(carId).subscribe((response) => {
+  getCarById(carId: number) {
+    this.carService.getCarById(carId).subscribe((response) => {
       this.car= response.data;
       this.carImages=response.data.carImages;
     });
@@ -41,5 +42,12 @@ export class CarDetailComponent implements OnInit {
       return "carousel-item";
     }
   }
+
+  getRoute(carId:number)
+  {
+    this.route.navigateByUrl("/cars/hire/"+carId);
+  }
+
+  
 
 }

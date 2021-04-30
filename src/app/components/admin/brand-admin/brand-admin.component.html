@@ -1,0 +1,77 @@
+<div class="container mb-3">
+    <div class="container">
+        <div class="col-md-5">
+        <div class="mb-3">
+        <h5>İşlem tipi</h5>
+        <div class=" d-grid gap-2 d-md-flex justify-content-start">
+        <input (click)="selectionAdd(true)" type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+        <label class="btn btn-outline-success" for="success-outlined">Marka Ekle</label>
+    
+        <input (click)="selectionEdit(true)" type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+        <label class="btn btn-outline-danger" for="danger-outlined">Güncelle / Sil</label>
+        </div>
+        </div>
+        </div>
+        </div>
+    
+    <div *ngIf="selectionForAdd && selectionForEdit==false" class="container mb-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><h5 class="title">Yeni marka Ekle</h5></div>
+            <div class="card-body">
+                <form [formGroup]="brandAddForm">
+                    <label for="name"></label>
+                    <div class="form-group mb-3">
+                        <input type="text" id="name" formControlName="brandName" class="form-control" placeholder="Marka adı">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-fill btn-success" (click)="addBrand()">Ekle</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table">
+    <thead>
+      <tr>        
+        <th scope="col">İsim</th>
+        <th scope="col">Güncelle</th>
+        <th scope="col">Sil</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let brand of allBrands">
+      <tr >        
+        <td>{{brand.brandName}}</td>
+        <td><button class="btn btn-success btn-sm" (click)="getBrandByBrandId(brand.brandId)">Güncelle</button></td>
+        <td><button class="btn btn-danger btn-sm" (click)="deleteBrand(brand.brandId)">Sil</button></td>
+      </tr>      
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="selectedBrandDataLoaded" class="container mb-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><h5 class="title">Markayı Güncelle</h5></div>
+            <div class="card-body">
+                <form [formGroup]="brandUpdateForm">
+                    <label for="name">Mevcut isim: {{selectedBrand.brandName}}</label>
+                    <div class="form-group mb-3">
+                        <input type="text" id="name" formControlName="brandName" class="form-control" placeholder="Eski ismi yazıp güncelle butonuna basınız.">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-fill btn-success" (click)="updateBrand()">Güncelle</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+</div>

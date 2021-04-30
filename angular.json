@@ -31,13 +31,15 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/custom-theme.scss",
               "./node_modules/ngx-toastr/toastr.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/css/css-bootstrap.css",
               "src/assets/css/css-style.css",
+              //"src/assets/css/css-navigation.css",
               "src/assets/css/css-settings.css",
               "src/assets/css/css-layers.css",
-              //"src/assets/css/css-navigation.css",
               "src/assets/css/magnific-popup-magnific-popup.css",
               "src/assets/css/animate-animate.min.css",
               "src/assets/css/css-swiper.min.css",

@@ -37,6 +37,12 @@
                             <div class="col-12">
                                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner">
+
+
+
+                                        
+
+
                                         <div *ngFor="let image of car.carImages let i = index"
                                             [ngClass]="getSliderClassName(i)">
                                             <img src="https://localhost:44342/Resources/Images/{{ image.imagePath }}"
@@ -56,8 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row divider"></div>
-                       
+                        
 
 
                     </div>
@@ -82,7 +87,9 @@
 
                             </ul>
                         </div>
-
+                        <button mat-flat-button color="primary" *ngIf="car.isRentable" (click)="getRoute(car.carId)">Kirala</button>
+                        <h3 *ngIf="!car.isRentable">Araç şuan da kiralamaya müsait değildir!</h3>
+                        
                     </div>
                 </div>
 

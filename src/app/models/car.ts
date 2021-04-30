@@ -1,6 +1,6 @@
 import { CarImages } from "./carImage";
 
-export interface Car{
+export class Car{
     carId:number;
     brandId:number;
     colorId:number;
@@ -11,5 +11,6 @@ export interface Car{
     dailyPrice:number;
     description:string;
     carImages:CarImages[];
+    isRentable:boolean;
     
 }

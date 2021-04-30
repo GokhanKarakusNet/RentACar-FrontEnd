@@ -1,7 +1,3 @@
-/*!
- * Çağ Medya - Copyright 2020
- */
-
 .bgcolor {
 	 background-color: #1e6db0;
 }
@@ -227,18 +223,6 @@ hr {
 
 
 
-.card {
-  margin-bottom: 15px;
-}
-
-.card-body {
-  padding: 0 0 15px 0;
-}
-
-.card-img-top {
-  height: 250px;
-  object-fit: contain;
-}
 
 .col-image {
   height: 250px;

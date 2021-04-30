@@ -1,5 +1,5 @@
 
-export interface Rental{
+export class Rental{
     rentalId:number;
     carId:number;
     carName:string;

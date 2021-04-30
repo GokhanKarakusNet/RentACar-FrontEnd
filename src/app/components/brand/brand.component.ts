@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Brand } from 'src/app/models/brand';
 import { BrandService } from 'src/app/services/brand.service';
+import { EventService } from 'src/app/services/event-service.service';
 
 @Component({
   selector: 'app-brand',
@@ -11,14 +12,14 @@ import { BrandService } from 'src/app/services/brand.service';
 export class BrandComponent implements OnInit {
   brands:Brand[]=[];
   currentBrand:number=0;
-  constructor(private brandService:BrandService,private activatedRoute: ActivatedRoute) { }
+  selectedBrands:Brand[]=[];
+  filterText = '';
+  constructor(private brandService:BrandService,
+    private activatedRoute: ActivatedRoute,
+    private eventService:EventService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      if (params['brandId']) {
-        this.currentBrand=params['brandId'];
-      }
-    }); 
+    
     this.getBrands();
   }
 
@@ -48,5 +49,14 @@ export class BrandComponent implements OnInit {
       return "list-group-item list-group-item-action list-group-item-primary"
     }
     return "list-group-item list-group-item-action list-group-item-light"
+  }
+
+  selectBrand(brand:Brand){
+    this.selectedBrands.push(brand);
+    this.emitBrands();
+  }
+  
+  emitBrands(){
+    this.eventService.emit<Brand[]>(this.selectedBrands);
   }
 }

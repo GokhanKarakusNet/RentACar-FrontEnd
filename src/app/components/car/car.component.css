@@ -1,0 +1,13 @@
+
+.card {
+    margin-bottom: 15px;
+  }
+  
+  .card-body {
+    padding: 0 0 15px 0;
+  }
+  
+  .card-img-top {
+    height: 250px;
+    object-fit: contain;
+  }

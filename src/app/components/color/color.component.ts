@@ -12,6 +12,7 @@ export class ColorComponent implements OnInit {
 
   colors:Color[]=[];
   currentColor:number=0;
+  filterText=''
   constructor(private colorService:ColorService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {

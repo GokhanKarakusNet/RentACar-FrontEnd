@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Rental } from 'src/app/models/rental';
+import { CarService } from 'src/app/services/car.service';
+import { CustomerService } from 'src/app/services/customer.service';
 import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
@@ -10,9 +13,12 @@ import { RentalService } from 'src/app/services/rental.service';
 export class RentalComponent implements OnInit {
   rentals: Rental[] = [];
   dataLoaded = false;
-  filterText = '';
+ 
 
-  constructor(private rentalService: RentalService,) { }
+  constructor(private rentalService: RentalService,
+    private carService:CarService,
+    private customerService:CustomerService,
+    private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getRentals();
