@@ -82,6 +82,3 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/)
 
-
-![brand](https://user-images.githubusercontent.com/79168352/116742166-ada5a200-a9ff-11eb-961c-0aef5988f6e8.jpg)
-![color](https://user-images.githubusercontent.com/79168352/116742175-af6f6580-a9ff-11eb-8626-55c2da1130ef.jpg)
