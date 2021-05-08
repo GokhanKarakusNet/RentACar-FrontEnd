@@ -1,6 +1,6 @@
-export interface Findex{
-    id:number,
-    customerId:number,
-    nationalIdentity:string,
-    score:number
+export class Findex{
+    id:number;
+    userId:number;
+    nationalIdentity:string;
+    findeksValue:number
 }

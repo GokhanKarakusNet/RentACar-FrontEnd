@@ -27,9 +27,9 @@ export class CarService {
     return this.httpClient.get<ListResponseModel<Car>>(newPath)
   }
 
-  getCarByCarId(carId:number):Observable<SingleResponseModel<Car>>{
+  getCarByCarId(carId:number):Observable<SingleResponseModel<CarDetailWithoutAnyImageDto>>{
     let newPath = this.apiUrl+"getbyid?id="+carId
-    return this.httpClient.get<SingleResponseModel<Car>>(newPath)
+    return this.httpClient.get<SingleResponseModel<CarDetailWithoutAnyImageDto>>(newPath)
   }
 
   getCarDetailDtoByCarId(carId:number):Observable<SingleResponseModel<CarDetailWithoutAnyImageDto>>{
@@ -56,17 +56,17 @@ export class CarService {
     return this.httpClient.get<ListResponseModel<CarDetailWithMainImageDto>>(newPath);
   }
 
-  addCar(car:Car):Observable<ResponseModel>{
+  addCar(car:CarDetailWithoutAnyImageDto):Observable<ResponseModel>{
     let newPath = this.apiUrl+"add"
     return this.httpClient.post<ResponseModel>(newPath,car);
   }
 
-  updateCar(car:Car):Observable<ResponseModel>{
+  updateCar(car:CarDetailWithoutAnyImageDto):Observable<ResponseModel>{
     let newPath=this.apiUrl+"update";
     return this.httpClient.post<ResponseModel>(newPath, car)
   }
 
-  deleteCar(car:Car):Observable<ResponseModel>{
+  deleteCar(car:CarDetailWithoutAnyImageDto):Observable<ResponseModel>{
     let newPath = this.apiUrl+"delete"
     return this.httpClient.post<ResponseModel>(newPath,car)
   }

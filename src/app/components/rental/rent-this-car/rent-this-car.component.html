@@ -11,7 +11,7 @@
           <form [formGroup]="firstFormGroup">
               <div class="row-1">
                   <div class="row row-2"> <span id="card-inner">Şirket Adı</span> </div>
-                  <div class="row row-2"> <input type="text" placeholder="Örn Kazanlar" formControlName="companyName"> </div>
+                  <div class="row row-2"> <input type="text" placeholder="Örn GK Rental" formControlName="companyName"> </div>
               </div>
                <span id="card-header" style="color:black;">Aracı Kiralayacağınız Tarih:</span>
               <div class="row-1">
@@ -45,7 +45,7 @@
               <div (click)="savedCard(creditCard,content)" style="cursor: pointer;" class="col-md-10">
                 <div class="row">
                   <div class="col-2" ><img class="img-fluid" src="https://img.icons8.com/color/48/000000/mastercard-logo.png" /></div>
-                  <div class="col-md-10" style="color:black;text-align:center;padding-top: 13px;"><strong>{{creditCard.firstNameOnTheCard}} {{creditCard.cardNumber}}</strong></div>
+                  <div class="col-md-10" style="color:black;text-align:center;padding-top: 13px;"><strong>{{creditCard.nameOnTheCard}} {{creditCard.cardNumber}}</strong></div>
                 </div>
               </div>
               <div (click)="removeCard(creditCard)" class="col-2 d-flex justify-content-center" style="border-top-right-radius: 5px;background-color: crimson;cursor: pointer;"><div style="color: white;font-weight: bold;padding-right: 7px;">Kartı Sil</div> </div>
@@ -95,7 +95,7 @@
   <div class="modal-body">
     <h3 class="mt-3">Aracı Kiralayabilmen İçin Findeks Puanını Sorgulamamız Gerekir</h3>
     <div class="row row-2"> <span id="card-inner">TC Kimlik Numaranız</span> </div>
-    <input type="text" class="form-control" placeholder="11 Haneli TC" id="tc" name="tc" [(ngModel)]="creditNote.nationalIdentity">
+    <input type="text" class="form-control" maxlength="11" placeholder="11 Haneli TC" id="tc" name="tc" [(ngModel)]="creditNote.nationalIdentity">
   </div>
   <div class="modal-footer">
     <div class="col-md-12 row">

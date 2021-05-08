@@ -15,13 +15,19 @@ export class CreditCardService {
 
   apiUrl = 'https://localhost:44342/api/creditcards/'
 
-  getCustomerCardListByCustomerId(customerId:number):Observable<ListResponseModel<CreditCard>>{
-    let newPath=this.apiUrl+"getcustomercardlistbycustomerid"+customerId
-    return this.httpClient.get<ListResponseModel<CreditCard>>(newPath)
+  
+  getCreditCards():Observable<ListResponseModel<CreditCard>> {
+    return this.httpClient.get<ListResponseModel<CreditCard>>(this.apiUrl);
   }
 
-  getCustomerSelectedCardByCustomerId(customerId:number):Observable<SingleResponseModel<CreditCard>>{
-    let newPath= this.apiUrl+"getcustomerselectedcardbycustomerid"+customerId
+  getCreditCardsByCustomerId(customerId:number):Observable<ListResponseModel<CreditCard>> {
+    let newPath = this.apiUrl+customerId;
+    return this.httpClient.get<ListResponseModel<CreditCard>>(newPath);
+  }
+
+
+  getSelectedCardByCustomerId(customerId:number):Observable<SingleResponseModel<CreditCard>>{
+    let newPath= this.apiUrl+"getselectedcardbycustomerId/"+customerId
     return this.httpClient.get<SingleResponseModel<CreditCard>>(newPath);
   }
   addCreditCard(creditCard:CreditCard):Observable<ResponseModel>{

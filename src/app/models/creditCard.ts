@@ -1,13 +1,14 @@
-export interface CreditCard{
+export class CreditCard{
     id:number;
     customerId:number;
-    cardTypeId:number;
-    cardTypeName:string,
-    cardNumber:string;
-    firstNameOnTheCard:string;
-    lastNameOnTheCard:string;
-    expirationMonth:number;
-    expirationYear:number;
-    cvv:string;
+    nameOnTheCard: string;
+    cardNumber: string;
+    expirationDate: string;
+    cvv: string;
     selectedCard:boolean
 }
+
+
+  
+
+ 

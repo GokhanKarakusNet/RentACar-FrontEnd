@@ -13,8 +13,8 @@ export class FindexService {
 
   apiUrl="https://localhost:44342/api/findeks/";
 
-  getFindexByCustomerId(customerId:number):Observable<SingleResponseModel<Findex>>{
-    let newPath= this.apiUrl+"getbycustomerId?customerId="+customerId
+  getFindexByNationalId(id:string):Observable<SingleResponseModel<Findex>>{
+    let newPath= this.apiUrl+"getfindeksbynational/"+id
     return this.httpClient.get<SingleResponseModel<Findex>>(newPath)
   }
 
@@ -22,5 +22,7 @@ export class FindexService {
     let newPath = this.apiUrl + "add";
     return this.httpClient.post<SingleResponseModel<Findex>>(newPath,creditNote);
   }
+
+  
 
 }

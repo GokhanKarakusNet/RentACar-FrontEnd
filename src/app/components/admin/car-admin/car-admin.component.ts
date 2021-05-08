@@ -75,7 +75,7 @@ export class CarAdminComponent implements OnInit {
       modelYear: [this.selectedCar.modelYear, [Validators.required, Validators.min(1500)]],
       dailyPrice: [this.selectedCar.dailyPrice, Validators.required],
       description: [this.selectedCar.description, Validators.required],
-      minFindeksScore:[this.selectedCar.minFindeksScore, [Validators.required, Validators.min(0),Validators.max(1900)]]
+      minFindeksValue:[this.selectedCar.minFindeksValue, [Validators.required, Validators.min(0),Validators.max(1900)]]
     });
   }
 
@@ -87,7 +87,7 @@ export class CarAdminComponent implements OnInit {
       modelYear: ['', [Validators.required, Validators.min(1500)]],
       dailyPrice: ['', Validators.required],
       description: ['', Validators.required],
-      minFindeksScore: ['', [Validators.required, Validators.min(0), Validators.max(1900)]]
+      minFindeksValue: ['', [Validators.required, Validators.min(0), Validators.max(1900)]]
     });
   }
 
@@ -131,15 +131,16 @@ export class CarAdminComponent implements OnInit {
   }
 
   updateCar(carId: number) {
-    this.getSelectedCar(carId);
+   
     if (this.carUpdateForm.valid) {
       let carModelToUpdate = Object.assign({}, this.carUpdateForm.value);
-      carModelToUpdate.id = this.selectedCar.carId;
+      
       this.carService.updateCar(carModelToUpdate).subscribe(response => {
         this.toastrService.success(response.message, 'Başarılı');
-        this.selectedCarResetter(false)
-        this.carUpdateForm.reset()
         this.getAllCarsDto()
+        this.carUpdateForm.reset()
+        
+        this.selectedCarResetter(false)
       },
         (responseError) => {
           if (responseError.error.ValidationErrors.length > 0) {
@@ -165,7 +166,7 @@ export class CarAdminComponent implements OnInit {
   }
 
   deleteCar(id:number){
-    let carToDelete:Car;
+    let carToDelete:CarDetailWithoutAnyImageDto;
     this.carService.getCarByCarId(id).subscribe(response=>{
       carToDelete=response.data
        this.carService.deleteCar(carToDelete).subscribe(response=>{
