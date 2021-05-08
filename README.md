@@ -65,6 +65,7 @@
 #### Color
 ![color](https://user-images.githubusercontent.com/79168352/117525365-a156b180-afca-11eb-95ce-39d37e7ce67c.gif)
 
+#### Car Detail
 
 ![car_detail](https://user-images.githubusercontent.com/79168352/117525487-3659aa80-afcb-11eb-8b87-75608086065e.gif)
 
