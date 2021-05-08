@@ -11,9 +11,9 @@
 
 
 ## Table of Contents
+- [Api Page](#api-page)
 - [Home Page](#home-page)
 - [Login Page](#login-page)
-- [Add Car](#add-car)
 - [Update Car](#update-car)
 - [Rent A Car](#rent-car)
 - [Filter Car](#filter-car)
@@ -27,24 +27,26 @@
 
 
 
+
 ## Usage
+
+#### Api Page
+![my_api](https://user-images.githubusercontent.com/79168352/117521862-b88ca380-afb8-11eb-9578-3bfba329c662.gif)
+
+
 #### Home Page
-![home_page](https://user-images.githubusercontent.com/79168352/116740109-3838d200-a9fd-11eb-956b-29e37f9a3a87.jpg)
+![home_page](https://user-images.githubusercontent.com/79168352/117522340-76b12c80-afbb-11eb-9a8a-c4fa97b0444b.gif)
 
 
 #### Login Page
-![login_page](https://user-images.githubusercontent.com/79168352/116784973-c8c7ee80-aa9f-11eb-9c22-b9b08dc2f17c.jpeg)
-![login](https://user-images.githubusercontent.com/79168352/116785204-f19cb380-aaa0-11eb-85a3-548c8feb691a.png)
-![login1](https://user-images.githubusercontent.com/79168352/116785209-f2354a00-aaa0-11eb-9c0a-1ef7281ff006.png)
-
-
+![login_page](https://user-images.githubusercontent.com/79168352/117522457-2eded500-afbc-11eb-8093-23b58a69fb4d.gif)
 
 #### Add Car
-![add_car](https://user-images.githubusercontent.com/79168352/116740562-dd53aa80-a9fd-11eb-98af-4a8aee6dd1e4.jpg)
+![add_car](https://user-images.githubusercontent.com/79168352/117522586-f7245d00-afbc-11eb-83dd-c6ff54a32d67.gif)
 
 #### Update Car
-![update car](https://user-images.githubusercontent.com/79168352/116740962-5d7a1000-a9fe-11eb-8eaf-6df07c46b697.jpg)
-![update car](https://user-images.githubusercontent.com/79168352/116740966-5eab3d00-a9fe-11eb-8c14-35cf22c6c353.jpg)
+![update car](https://user-images.githubusercontent.com/79168352/117524257-728a0c80-afc5-11eb-85b3-df6b48f5006a.gif)
+
 
 #### Rent Car
 ![rent_car](https://user-images.githubusercontent.com/79168352/116741322-d711fe00-a9fe-11eb-966e-2291f447f303.jpg)
@@ -59,6 +61,7 @@
 
 #### Color
 ![color](https://user-images.githubusercontent.com/79168352/116742228-c0b87200-a9ff-11eb-8e34-64f89ab6f432.jpg)
+
 
 
 
