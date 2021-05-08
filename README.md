@@ -19,7 +19,8 @@
 - [Filter Car](#filter-car)
 - [Brand](#brand)
 - [Color](#color)
-- [Profile Update](#profile-update)
+- [Car Detail](#car-detail)
+
 - [Search](#search)
 - [Register](#register)
 - [Add Credit Card](#add-credit-card)
@@ -62,9 +63,10 @@
 ![brand](https://user-images.githubusercontent.com/79168352/117525289-28eff080-afca-11eb-991b-96bb057cabec.gif)
 
 #### Color
-![color](https://user-images.githubusercontent.com/79168352/116742228-c0b87200-a9ff-11eb-8e34-64f89ab6f432.jpg)
+![color](https://user-images.githubusercontent.com/79168352/117525365-a156b180-afca-11eb-95ce-39d37e7ce67c.gif)
 
 
+![car_detail](https://user-images.githubusercontent.com/79168352/117525487-3659aa80-afcb-11eb-8b87-75608086065e.gif)
 
 
 <hr>
