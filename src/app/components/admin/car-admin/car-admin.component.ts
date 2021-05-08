@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 import { ToastrService } from 'ngx-toastr';
 import { Brand } from 'src/app/models/brand';
 import { Car } from 'src/app/models/car';
+import { CarDetailWithMainImageDto } from 'src/app/models/carDetailWithMainImageDto';
+import { CarDetailWithoutAnyImageDto } from 'src/app/models/carDetailWithoutAnyImageDto';
 import { Color } from 'src/app/models/color';
 import { BrandService } from 'src/app/services/brand.service';
 import { CarService } from 'src/app/services/car.service';
@@ -22,33 +26,37 @@ export class CarAdminComponent implements OnInit {
     private toastrService: ToastrService,
     private brandService: BrandService,
     private colorService: ColorService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute
   ) { }
 
-  selectedCar: Car;
-  carToUpdated: Car;
-  allCars: Car[];
+  selectedCar: CarDetailWithoutAnyImageDto;
+  carToUpdated: CarDetailWithoutAnyImageDto;
+  allCars: CarDetailWithMainImageDto[];
   selectedCarDataLoaded = false;
   selectionforAdd: boolean = true
   selectionForEdit: boolean = false
   imageUrl: string = 'https://localhost:44342/Resources/Images/';
 
-  carUpdateForm: FormGroup
+  carUpdateForm: FormGroup;
   carAddForm: FormGroup;
 
   selectionAdd(selection: boolean) {
     this.selectionforAdd = selection;
     this.selectionForEdit = false;
-    this.selectedCarResetter(false)    
+    this.selectedCarResetter(false)
   }
   selectionEdit(selection: boolean) {
     this.selectionforAdd = false;
-    this.selectionForEdit=selection 
+    this.selectionForEdit = selection
   }
 
   ngOnInit(): void {
     this.getAllCarsDto();
-    this.createCarUpdateForm();
+ 
+   
+  
+    
     this.createCarAddForm();
     this.brandService.getBrands().subscribe(response => {
       this.brands = response.data;
@@ -60,12 +68,14 @@ export class CarAdminComponent implements OnInit {
 
   createCarUpdateForm() {
     this.carUpdateForm = this.formBuilder.group({
-      brandId: ['', Validators.required],
-      colorId: ['', Validators.required],
-      carName: ['', Validators.required],
-      modelYear: ['', [Validators.required]],
-      dailyPrice: ['', Validators.required],
-      description: ['', Validators.required],
+      carId:[this.selectedCar.carId],
+      brandId: [this.selectedCar.brandId, Validators.required],
+      colorId: [this.selectedCar.colorId, Validators.required],
+      carName: [this.selectedCar.carName, Validators.required],
+      modelYear: [this.selectedCar.modelYear, [Validators.required, Validators.min(1500)]],
+      dailyPrice: [this.selectedCar.dailyPrice, Validators.required],
+      description: [this.selectedCar.description, Validators.required],
+      minFindeksScore:[this.selectedCar.minFindeksScore, [Validators.required, Validators.min(0),Validators.max(1900)]]
     });
   }
 
@@ -77,16 +87,20 @@ export class CarAdminComponent implements OnInit {
       modelYear: ['', [Validators.required, Validators.min(1500)]],
       dailyPrice: ['', Validators.required],
       description: ['', Validators.required],
+      minFindeksScore: ['', [Validators.required, Validators.min(0), Validators.max(1900)]]
     });
   }
 
   addCar() {
     if (this.carAddForm.valid) {
       let carModel = Object.assign({}, this.carAddForm.value);
-      this.carService.add(carModel).subscribe((response) => {
-          this.toastrService.success(response.message, 'Başarılı');
-          this.carUpdateForm.reset()
-        },
+      console.log(carModel)
+      this.carService.addCar(carModel).subscribe((response) => {
+        this.toastrService.success(response.message, 'Başarılı');
+        this.carUpdateForm.reset()
+        this.getAllCarsDto()
+
+      },
         (responseError) => {
           if (responseError.error.ValidationErrors.length > 0) {
             for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
@@ -97,14 +111,17 @@ export class CarAdminComponent implements OnInit {
         }
       );
     } else {
-      this.toastrService.error('Giriş yaptığınız bilgileri kontrol ediniz.','Dikkat');
+      console.log(this.carAddForm)
+
+      this.toastrService.error('Giriş yaptığınız bilgileri kontrol ediniz.', 'Dikkat');
     }
   }
 
   getSelectedCar(carId: number) {
-    this.carService.getCarById(carId).subscribe(response => {
+    this.carService.getCarDetailDtoByCarId(carId).subscribe(response => {
       this.selectedCar = response.data;
       this.selectedCarDataLoaded = true;
+      this.createCarUpdateForm();
       //console.log(this.selectedCar)      
     })
   }
@@ -118,10 +135,11 @@ export class CarAdminComponent implements OnInit {
     if (this.carUpdateForm.valid) {
       let carModelToUpdate = Object.assign({}, this.carUpdateForm.value);
       carModelToUpdate.id = this.selectedCar.carId;
-      this.carService.update(carModelToUpdate).subscribe(response => {
+      this.carService.updateCar(carModelToUpdate).subscribe(response => {
         this.toastrService.success(response.message, 'Başarılı');
         this.selectedCarResetter(false)
         this.carUpdateForm.reset()
+        this.getAllCarsDto()
       },
         (responseError) => {
           if (responseError.error.ValidationErrors.length > 0) {
@@ -146,9 +164,24 @@ export class CarAdminComponent implements OnInit {
     }
   }
 
+  deleteCar(id:number){
+    let carToDelete:Car;
+    this.carService.getCarByCarId(id).subscribe(response=>{
+      carToDelete=response.data
+       this.carService.deleteCar(carToDelete).subscribe(response=>{
+      this.toastrService.success(response.message,"Silindi")
+      this.getAllCarsDto()
+    },responseError=>{
+      this.toastrService.error(responseError.message)
+    })
+    },responseError=>{
+      this.toastrService.error("Belirtilen araca ulaşılamadı","Hata")
+    })   
+   
+    }
 
   getAllCarsDto() {
-    this.carService.getCars().subscribe(response => {
+    this.carService.getCarsDto().subscribe(response => {
       this.allCars = response.data;
     })
   }

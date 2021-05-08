@@ -33,3 +33,14 @@ $RentACar-FrontEnd-theme: mat-light-theme((
 // that you are using.
 @include angular-material-theme($RentACar-FrontEnd-theme);
 
+//for dark theme
+$market-primary-dark: mat-palette($mat-orange);
+$market-accent-dark: mat-palette($mat-yellow);
+$market-warn-dark: mat-palette($mat-red);
+
+$market-theme-dark: mat-dark-theme($market-primary-dark, $market-accent-dark, $market-warn-dark);
+.dark-theme-mode {
+    @include angular-material-theme($market-theme-dark);
+}
+
+

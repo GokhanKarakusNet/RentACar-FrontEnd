@@ -3,12 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Brand } from 'src/app/models/brand';
 import { Car } from 'src/app/models/car';
+import { CarDetailWithMainImageDto } from 'src/app/models/carDetailWithMainImageDto';
 import { Color } from 'src/app/models/color';
 import { BrandService } from 'src/app/services/brand.service';
 import { CarService } from 'src/app/services/car.service';
 import { ColorService } from 'src/app/services/color.service';
-import { EventService } from 'src/app/services/event-service.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-car',
@@ -17,119 +16,132 @@ import { environment } from 'src/environments/environment';
 })
 export class CarComponent implements OnInit {
 
-  cars: Car[] = [];
+  carDetailDto: CarDetailWithMainImageDto[] = [];
+  imageUrl: string = 'https://localhost:44342/Resources/Images/';
+  carNameFilterText = '';
+  brandNameFilterText = '';
+  colorNameFilterText = '';
+  brands: Brand[];
+  colors: Color[];
+  //For Filter Bar
+  selectedBrandIdText: string = 'Marka Seç';
+  selectedColorIdText: string = 'Renk Seç';
+  selectedBrandId: number;
+  selectedColorId: number;
+  responseCount=false;
   dataLoaded = false;
-  filterText = '';
-  brands:Brand[] = [];
-  colors:Color[] = [];
-  control:boolean = false;
-  selectedBrand:number=0;
-  selectedColor:number=0;
-  //imageUrl = environment.apiURL;
 
   constructor(
     private carService: CarService,
+    private brandService: BrandService,
+    private colorService: ColorService,
     private activatedRoute: ActivatedRoute,
-    private toastrService:ToastrService,
-    private route:Router,
-    private brandService:BrandService,
-    private colorService:ColorService
+    private toastrService:ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      if (params["brandId"] && params["colorId"])
-     {
-       if (this.selectedBrand !=0 || this.selectedColor !=0) {
-        this.getCarsByFilter();
-       }
-       
-     }
-     else if(params["colorId"])
-     {
-       this.getCarsByColor(params["colorId"]);
-       if (this.selectedColor !=0) {
-        this.getCarsByFilter();
-       }
-     }
-     else if (params["brandId"])
-     {
-       this.getCarsByBrand(params["brandId"]);
-       if (this.selectedBrand !=0) {
-        this.getCarsByFilter();
-       }
-     }
-     else {
-       this.getCars();
-     }
-  
-   })
-   this.getBrands();
-    this.getColors();
- }
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['brandId']) {
+        this.getCarsByBrandId(params['brandId']);
+      } else if (params['colorId']) {
+        this.getCarsByColorId(params['colorId']);
+      } else {
+        this.getCars();
+      }
+    });
+    this.getBrandsFromBrandService();
+    this.getColorsFromColorService();
+  }
 
- 
   getCars() {
-    this.carService.getCars().subscribe((response) => {
-      this.cars = response.data;
-      this.dataLoaded = true;
-      this.cars.length <= 0 ? this.control = true : false;
-    });
-  }
-  getCarsById(carId: number) {
-    this.carService.getCarById(carId).subscribe((response) => {
-      (this.cars[0] = response.data), (this.dataLoaded = true);
-    });
-  }
-  
-  getCarsByBrand(brandId: number) {
-    this.carService.getCarsByBrand(brandId).subscribe((response) => {
-      this.cars = response.data;
-      this.cars.length <= 0 ? this.control = true : false;
-      this.dataLoaded = true;
-    });
-  }
-  getCarsByColor(colorId: number) {
-    this.carService.getCarsByColor(colorId).subscribe((response) => {
-      this.cars = response.data;
-      this.cars.length <= 0 ? this.control = true : false;
+    this.carService.getCarsDto().subscribe((response) => {
+      this.carDetailDto = response.data;
       this.dataLoaded = true;
     });
   }
 
-  getBrands()
-  {
-    this.brandService.getBrands().subscribe(response => {
+  getCarsByBrandId(brandId: number) {
+    this.responseCount=false   
+    this.carService.getCarsByBrandId(brandId).subscribe((response) => {
+      this.carDetailDto = response.data;
+      this.dataLoaded = true;
+      if(response.data.length===0){  
+        this.responseCount=true        
+        this.toastrService.error("Aradığınız kriterde araç bulunmamaktadır. Farklı kriterler ile yeniden deneyiniz.")  
+      }
+    });
+  }
+
+  getCarsByColorId(colorId: number) {
+    this.responseCount=false   
+    this.carService.getCarsByColorId(colorId).subscribe((response) => {
+      this.carDetailDto = response.data;
+      this.dataLoaded = true;
+      if(response.data.length===0){  
+        this.responseCount=true        
+        this.toastrService.error("Aradığınız kriterde araç bulunmamaktadır. Farklı kriterler ile yeniden deneyiniz.")  
+      }
+    });
+  }
+
+  getCarsByBrandIdAndColorId(brandId: number, colorId: number) {
+    this.carService
+      .getCarsByBrandIdAndColorId(brandId, colorId)
+      .subscribe((response) => {
+        this.carDetailDto = response.data;
+        this.dataLoaded = true;
+        if(response.data.length===0){  
+          this.responseCount=true        
+          this.toastrService.error("Aradığınız kriterde araç bulunmamaktadır. Farklı kriterler ile yeniden deneyiniz.")  
+        }
+      });
+  }
+
+  getBrandsFromBrandService() {
+    this.brandService.getBrands().subscribe((response) => {
       this.brands = response.data;
-      console.log(this.brands);
-    })
-  }
-
-  getColors()
-  {
-    this.colorService.getColors().subscribe(response => {
-      this.colors = response.data;
-    })
-  }
-
-  getCarsByFilter()
-  {
-      this.carService.getCarsByFilter(this.selectedBrand,this.selectedColor).subscribe(response => {
-      this.cars = response.data;
-      this.cars.length <= 0 ? this.control = true : false;
-
-    },errorResponse=>{
-      this.cars.length <= 0 ? this.control = true : false;
-
-      this.toastrService.error(errorResponse.error.message);
+      this.dataLoaded = true;
     });
-    this.selectedColor=0;
-    this.selectedBrand=0;
   }
-  getRoute(carId:number)
-  {
-    this.route.navigateByUrl("/cars/car-detail/"+carId);
+  getColorsFromColorService() {
+    this.colorService.getColors().subscribe((response) => {
+      this.colors = response.data;
+      this.dataLoaded = true;
+    });
+  }
+
+  //For Filter Bar
+  filterByFilterBar() {
+    this.colorIdSetter();
+    this.brandIdSetter();
+    this.responseCount=false;
+    if (this.selectedBrandId != null && this.selectedColorId == null) {
+      this.getCarsByBrandId(this.selectedBrandId);
+    } else if (this.selectedBrandId == null && this.selectedColorId != null) {
+      this.getCarsByColorId(this.selectedColorId);
+    } else if (this.selectedBrandId != null && this.selectedColorId != null) {
+      this.getCarsByBrandIdAndColorId(
+        this.selectedBrandId,
+        this.selectedColorId
+      );
+    } else this.getCars();
+  }
+
+  colorIdSetter() {
+    let id = parseInt(this.selectedColorIdText);
+    if (this.selectedColorIdText != 'Renk Seç') {
+      this.selectedColorId = id;
+    } else {
+      this.selectedColorId = null;
+    }
   }
   
-
+  brandIdSetter() {
+    let id = parseInt(this.selectedBrandIdText);
+    if (this.selectedBrandIdText != 'Marka Seç') {
+      this.selectedBrandId = id;
+    } else {
+      this.selectedBrandId = null;
+    }
+  }
 }

@@ -1,0 +1,13 @@
+.subheader {
+    height: 100px;
+    background-image: url("/assets/images/img-inner-background.jpg");
+    margin-bottom: 1rem;
+  }
+  .subheader-title {
+    display: block;
+    margin-top: 35px; 
+  }
+  .sub-title {
+    margin-bottom: 0;
+    padding: 10px 5px 10px 10px;
+   }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Color } from 'src/app/models/color';
 import { ColorService } from 'src/app/services/color.service';
@@ -16,13 +15,14 @@ export class ColorAdminComponent implements OnInit {
     private colorService: ColorService,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
   ) { }
 
-  allColors: Color[];
+  allColors:Color[];
   selectedColor: Color;
-  allColorsDataLoaded = false
-  selectedColorDataLoaded = false
+  allColorsDataLoaded=false
+  selectedColorDataLoaded=false
+  selectionForAdd:boolean =true
+  selectionForEdit:boolean =false
   colorUpdateForm: FormGroup;
   colorAddForm: FormGroup;
 
@@ -31,11 +31,28 @@ export class ColorAdminComponent implements OnInit {
     this.createAddColorForm()
   }
 
+  selectionAdd(selection:boolean){
+    this.selectionForAdd=selection;
+    this.selectionForEdit=false;
+    this.resetSelectedColor(false)    
+  }
+
+  selectionEdit(selection:boolean){
+    this.selectionForAdd=false;
+    this.selectionForEdit=selection    
+  }
+
   createColorUpdateForm() {
     this.colorUpdateForm = this.formBuilder.group({
-      colorName: ["", Validators.required]
+      colorId:[this.selectedColor.colorId],
+      colorName: [this.selectedColor.colorName, Validators.required]
     });
   }
+
+  resetSelectedColor(newValue:boolean){
+    this.selectedColorDataLoaded=newValue
+  }
+
   createAddColorForm() {
     this.colorAddForm = this.formBuilder.group({
       colorName: ["", Validators.required]
@@ -45,8 +62,10 @@ export class ColorAdminComponent implements OnInit {
   addColor() {
     if (this.colorAddForm.valid) {
       let colorModel = Object.assign({}, this.colorAddForm.value)
-      this.colorService.add(colorModel).subscribe(response => {
+      this.colorService.addColor(colorModel).subscribe(response => {
         this.toastrService.success(response.message, 'Başarılı');
+        this.colorAddForm.reset();
+        this.getAllColors();
       },
         (responseError) => {
           if (responseError.error.ValidationErrors.length > 0) {
@@ -70,48 +89,47 @@ export class ColorAdminComponent implements OnInit {
   }
 
   getColorByColorId(id: number) {
-    this.createColorUpdateForm()
-    this.colorService.getColorByColorId(id).subscribe(response => {
+      this.colorService.getColorByColorId(id).subscribe(response => {
       this.selectedColor = response.data
       this.selectedColorDataLoaded = true
-      console.log("get metodundan" + this.selectedColor.colorName)
+      this.createColorUpdateForm()
     })
   }
 
   updateColor() {
     if (this.colorUpdateForm.valid) {
       let colorModel: Color = Object.assign({}, this.colorUpdateForm.value)
-      colorModel.colorId = this.selectedColor.colorId
+      //colorModel.colorId = this.selectedColor.colorId
       this.colorService.updateColor(colorModel).subscribe(response => {
         this.toastrService.success(response.message, 'Başarılı');
+        this.colorUpdateForm.reset();
+        this.getAllColors();
       },
         (responseError) => {
           if (responseError.error.ValidationErrors.length > 0) {
             for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
-              this.toastrService.error(
-                responseError.error.ValidationErrors[i].ErrorMessage,
-                'Doğrulama hatası'
-              );
+              this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage,'Doğrulama hatası');
             }
           }
         })
     }
     else {
-      this.toastrService.error(
-        'Giriş yaptığınız bilgileri kontrol ediniz.', 'Dikkat');
+      this.toastrService.error('Giriş yaptığınız bilgileri kontrol ediniz.', 'Dikkat');
     }
   }
 
-  deleteColor(id: number) {
-    let colorToDelete: Color
-    this.colorService.getColorByColorId(id).subscribe(response => {
-      colorToDelete = response.data
-      this.colorService.deleteColor(id).subscribe(response => {
-        this.toastrService.success(response.message, "Silindi")
-      }, responseError => {
-        this.toastrService.error(responseError.message)
-      })
-    })
+  deleteColor(id:number){
+    let colorToDelete:Color
+    this.colorService.getColorByColorId(id).subscribe(response=>{ colorToDelete=response.data
+     this.colorService.deleteColor(colorToDelete).subscribe(response=>{
+     this.toastrService.success(response.message,"Silindi")
+     this.getAllColors();
+   },responseError=>{
+     this.toastrService.error(responseError.message)
+   })
+    },responseError=>{
+      this.toastrService.error("Belirtilen renge ulaşılamadı.","Hata")
+    })    
   }
 
 }

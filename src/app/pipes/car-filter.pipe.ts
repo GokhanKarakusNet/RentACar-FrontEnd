@@ -1,14 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Car } from '../models/car';
+import { CarDetailWithMainImageDto } from '../models/carDetailWithMainImageDto';
 
 @Pipe({
-  name: 'carFilter'
+  name: 'carNameFilterPipe'
 })
 export class CarFilterPipe implements PipeTransform {
 
-  transform(value: Car[], filterText: string): Car[] {
-    filterText=filterText?filterText.toLocaleLowerCase():""
-    return filterText?value.filter((c:Car)=>c.carName.toLocaleLowerCase().indexOf(filterText)!==-1):value;
+  transform(value: CarDetailWithMainImageDto[], carNameFilterText: string): CarDetailWithMainImageDto[] {
+    carNameFilterText= carNameFilterText?carNameFilterText.toLocaleLowerCase():""
+    return carNameFilterText?value.filter((n:CarDetailWithMainImageDto)=>n.carName.toLocaleLowerCase().indexOf(carNameFilterText)!==-1 || n.brandName.toLocaleLowerCase().indexOf(carNameFilterText)!==-1):value;
   }
 
 }

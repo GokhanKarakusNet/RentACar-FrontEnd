@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Brand } from 'src/app/models/brand';
 import { BrandService } from 'src/app/services/brand.service';
@@ -16,7 +15,6 @@ export class BrandAdminComponent implements OnInit {
     private brandService: BrandService,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
   ) { }
 
   allBrands: Brand[];
@@ -45,7 +43,8 @@ export class BrandAdminComponent implements OnInit {
 
   createBrandUpdateForm() {
     this.brandUpdateForm = this.formBuilder.group({
-      brandName: ["", Validators.required]
+      brandId:[this.selectedBrand.brandId],
+      brandName: [this.selectedBrand.brandName, Validators.required]
     });
   }
   createAddBrandForm() {
@@ -57,8 +56,9 @@ export class BrandAdminComponent implements OnInit {
   addBrand() {
     if (this.brandAddForm.valid) {
       let brandModel = Object.assign({}, this.brandAddForm.value)
-      this.brandService.add(brandModel).subscribe(response => {
+      this.brandService.addBrand(brandModel).subscribe(response => {
         this.toastrService.success(response.message, 'Başarılı');
+        this.getAllBrands();
       },
         (responseError) => {
           if (responseError.error.ValidationErrors.length > 0) {
@@ -94,11 +94,10 @@ export class BrandAdminComponent implements OnInit {
   }
 
   getBrandByBrandId(id: number) {
-    this.createBrandUpdateForm()
     this.brandService.getBrandByBrandId(id).subscribe(response => {
       this.selectedBrand = response.data
       this.selectedBrandDataLoaded = true
-      console.log("get metodundan" + this.selectedBrand.brandName)
+      this.createBrandUpdateForm()
     })
   }
 
@@ -108,40 +107,38 @@ export class BrandAdminComponent implements OnInit {
       brandModel.brandId = this.selectedBrand.brandId
       this.brandService.updateBrand(brandModel).subscribe(response => {
         this.toastrService.success(response.message, 'Başarılı');
+        this.getAllBrands();
+        this.brandUpdateForm.reset();
       },
         (responseError) => {
           if (responseError.error.ValidationErrors.length > 0) {
-            for (
-              let i = 0;
-              i < responseError.error.ValidationErrors.length;
-              i++
-            ) {
-              this.toastrService.error(
-                responseError.error.ValidationErrors[i].ErrorMessage,
-                'Doğrulama hatası'
-              );
+            for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
+              this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage,'Doğrulama hatası');
             }
           }
         })
     }
     else {
       this.toastrService.error(
-        'Giriş yaptığınız bilgileri kontrol ediniz.',
-        'Dikkat'
-      );
+        'Giriş yaptığınız bilgileri kontrol ediniz.','Dikkat');
     }
   }
 
+
+  
   deleteBrand(id: number) {
     let brandToDelete: Brand
     this.brandService.getBrandByBrandId(id).subscribe(response => {
       brandToDelete = response.data
-      this.brandService.deleteBrand(id).subscribe(response => {
+      this.brandService.deleteBrand(brandToDelete).subscribe(response => {
         this.toastrService.success(response.message, "Silindi")
+        this.getAllBrands();
       }, responseError => {
         this.toastrService.error(responseError.message)
       })
-    })
+    },responseError=>{
+      this.toastrService.error("Belirtilen markaya ulaşılamadı.","Hata")
+    })    
   }
 
 }

@@ -1,0 +1,204 @@
+<!-- <div class="container col-md-10" style="padding-top: 10px;">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div *ngFor="let carImage of carImages" [class]="getCurrentSlideClass(carImage)">
+          <img src="{{imageUrl}}{{carImage.imagePath}}" class="d-block w-100" alt="..." style="width: auto; height: 450px;">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div> 
+  
+    <table *ngIf="getCarDetailsDataLoaded == true" class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>      
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Model</th>
+          <td>{{carDetailDto.carName}}</td>        
+        </tr>
+        <tr>
+          <th scope="row">Marka</th>
+          <td>{{carDetailDto.brandName}}</td>        
+        </tr>
+        <tr>
+          <th scope="row">Açıklama</th>
+          <td>{{carDetailDto.description}}</td>        
+        </tr>
+        <tr>
+          <th scope="row">Model Yılı</th>
+          <td>{{carDetailDto.modelYear}}</td>        
+        </tr>
+        <tr>
+          <th scope="row">Renk</th>
+          <td>{{carDetailDto.colorName}}</td>        
+        </tr>
+        <tr>
+          <th scope="row">Kiralama Ücreti</th>
+          <td>{{carDetailDto.dailyPrice}}₺</td>        
+        </tr>
+        <tr>
+          <th scope="row">Minimum Findeks Puanı</th>
+          <td>{{carDetailDto.minFindeksScore}}</td>        
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="getCarDetailsDataLoaded == true" class="d-grid gap-2 d-md-flex justify-content-md-end">    
+      <button routerLink="/rentcar/carId/{{ carDetailDto.carId}}" class="btn btn-success" type="button">Kirala</button>
+      <button routerLink="/cars/" class="btn btn-success" type="button">Araç Listesi</button>
+    </div>
+    
+  </div>
+  
+  
+   
+      
+    
+     -->
+
+
+<div class="subheader">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="subheader-title text-center text-white">Araç Detayları</h1>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="main-content">
+    <div class="container">
+        <div class="row divider"></div>
+
+        <div class="row">
+
+            <div class="col-12 col-sm-12 col-md-12">
+                <div class="row">
+                    <div class="col-12 col-md-9">
+                        <h3 class="main-title text-left">
+                            <h1><b>{{carDetailDto.brandName | titlecase}}</b> {{carDetailDto.carName | titlecase}}</h1>
+                        </h3>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3">
+                        <span class="adverts_price_wrapper">
+
+                            <h1>
+                                <b>Fiyat :</b> {{carDetailDto.dailyPrice}} ₺ / Gün
+                            </h1>
+                        </span>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+
+
+
+
+
+
+                                        <div *ngFor="let carImage of carImages"
+                                            [class]="getCurrentSlideClass(carImage)">
+                                            <img src="{{imageUrl}}{{carImage.imagePath}}" class="w-100 rounded"
+                                                alt="car-image" />
+                                        </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-12 col-md-4">
+
+                        <h2 class="text-center"> <b> Araç Detayları</b></h2>
+                        <table *ngIf="getCarDetailsDataLoaded == true" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Model</th>
+                                    <td>{{carDetailDto.carName}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Marka</th>
+                                    <td>{{carDetailDto.brandName}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Açıklama</th>
+                                    <td>{{carDetailDto.description}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Model Yılı</th>
+                                    <td>{{carDetailDto.modelYear}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Renk</th>
+                                    <td>{{carDetailDto.colorName}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Kiralama Ücreti</th>
+                                    <td>{{carDetailDto.dailyPrice}} ₺</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Minimum Findeks Puanı</th>
+                                    <td>{{carDetailDto.minFindeksScore}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="getCarDetailsDataLoaded == true"
+                            class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button routerLink="/rentcar/carId/{{ carDetailDto.carId}}" class="btn btn-success"
+                                type="button">Kirala</button>
+                            <button routerLink="/cars/" class="btn btn-success" type="button">Araç Listesi</button>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="row pb-2">
+                    <div class="col-12 col-md-12">
+                        <div>
+                            <h2> <b> Açıklama</b></h2>
+                            <hr>
+                        </div>
+                        <p>{{carDetailDto.description}}</p>
+
+                    </div>
+
+
+                </div>

@@ -12,16 +12,15 @@ export class CustomerComponent implements OnInit {
 
   customers: Customer[] = [];
   dataLoaded = false;
-  filterText = '';
+  
 
-  constructor(private cutomerService: CustomerService,
-    private activatedRoute:ActivatedRoute) { }
+  constructor(private cutomerService: CustomerService) { }
 
   ngOnInit(): void {
-    this.getCustomers();
+    this.getCustomerDetails();
   }
-  getCustomers() {
-    this.cutomerService.getCustomers().subscribe((response) => {
+  getCustomerDetails() {
+    this.cutomerService.getCustomerDetails().subscribe((response) => {
       this.customers = response.data;
       this.dataLoaded = true;
     });

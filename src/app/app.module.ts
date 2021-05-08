@@ -15,6 +15,7 @@ import { NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 
+
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -42,17 +43,22 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { RentalComponent } from './components/rental/rental.component';
 import { BrandFilterPipe } from './pipes/brand-filter.pipe';
 import { ColorFilterPipe } from './pipes/color-filter.pipe';
-import { CarDetailComponent } from './components/car-detail/car-detail.component';
 import { CarFilterPipe } from './pipes/car-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HireComponent } from './components/hire/hire.component';
-import { DeneComponent } from './components/dene/dene.component';
 import { CustomerSelectionComponent } from './components/customer/customer-selection/customer-selection.component';
-import { CarAddComponent } from './components/car/car-add/car-add.component';
-import { ColorAddComponent } from './components/color/color-add/color-add.component';
 import { BrandAdminComponent } from './components/admin/brand-admin/brand-admin.component';
 import { ColorAdminComponent } from './components/admin/color-admin/color-admin.component';
 import { CarAdminComponent } from './components/admin/car-admin/car-admin.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { CarDetailWithImageComponent } from './components/car-detail-with-image/car-detail-with-image.component';
+import { RentThisCarComponent } from './components/rental/rent-this-car/rent-this-car.component';
+import { NaviComponent } from './components/navi/navi.component';
+import { LocalStorageService } from './services/local-storage.service';
+import { LoadInterceptor } from './interceptors/load.interceptor';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -66,16 +72,18 @@ import { CarAdminComponent } from './components/admin/car-admin/car-admin.compon
     RentalComponent,
     BrandFilterPipe,
     ColorFilterPipe,
-    CarDetailComponent,
     CarFilterPipe,
-    HireComponent,
-    DeneComponent,
     CustomerSelectionComponent,
-    CarAddComponent,
-    ColorAddComponent,
     BrandAdminComponent,
     ColorAdminComponent,
     CarAdminComponent,
+    LoginComponent,
+    RegisterComponent,
+    AlertComponent,
+    CarDetailWithImageComponent,
+    RentThisCarComponent,
+    NaviComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,7 +123,11 @@ import { CarAdminComponent } from './components/admin/car-admin/car-admin.compon
     }),
     FileUploadModule
   ],
-  providers: [],
+  providers: [
+    { provide:  HTTP_INTERCEPTORS,  useClass: LoadInterceptor, multi: true  },
+    { provide:  HTTP_INTERCEPTORS,  useClass: AuthInterceptor, multi: true  },
+    LocalStorageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

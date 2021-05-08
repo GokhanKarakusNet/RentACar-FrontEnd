@@ -27,19 +27,20 @@
   </div>  -->
 
 
-
+  <div class="mb-3">  
+    <input type="text" [(ngModel)]="brandFilterText" class="form-control" id="filterTextForBrand" placeholder="Marka ara...">
+  </div>
+  <div *ngIf="brandFilterText" class="alert alert-primary">
+    {{brandFilterText}} aradınız
+  </div>
 <ul class="list-group">
 
-  <li routerLink="/cars" (click)="clearCurrentBrand()" [class]="getAllBrandClass()">Tüm Markalar</li>
-    <input style="background-color:cyan"  type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Marka ara">
+  <li (click)="currentBrandResetter(nullBrand)" routerLink="/cars/" [class]="getAllBrandsClass()">Tüm Markalar</li>
+   
   
-  <div *ngIf="filterText" class="alert alert-primary">
-    {{filterText}} aradınız
-  </div>
-  <li (click)="setCurrentBrand(brand.brandId)" routerLink="/cars/brand/{{brand.brandId}}" *ngFor="let brand of brands | brandFilter:filterText"
-    [class]="getCurrentBrandClass(brand.brandId)">
-    {{brand.brandName | titlecase}}</li>
-
+  
+  <li (click)="setCurrentBrand(brand)" routerLink="/cars/brand/{{brand.brandId}}"  *ngFor="let brand of brands | brandFilterPipe:brandFilterText" [class]="getCurrentBrandClass(brand)">{{ brand.brandName}}</li>
 </ul>
+<h6 *ngIf="currentBrand!=null">{{currentBrand.brandName}} seçtiniz.</h6>
 
 

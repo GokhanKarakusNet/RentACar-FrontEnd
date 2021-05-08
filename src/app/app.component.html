@@ -1,176 +1,59 @@
-<div class="header bg-light">
-  <div class="topbar bgcolor text-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-10">
+<app-navi></app-navi>
+
+    <div class="col-md-12" style="margin-top: 5px;">
+      <router-outlet></router-outlet>
+    </div>
 
 
-          
 
 
-        </div>
-        <div class="col-12 col-md-1 social_content">
-         
-         
-            <button class="btn btn-secondary dropdown-toggle bgcolor" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Giriş Yap
-            </button>
-            
-          
+   
+<section class="main-footer bg-light">
+  
+  <div class="container">
+    <div class="subheader">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="subheader-title text-center text-white">Duyurular</h1>
+            <hr>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="menubar">
-    <nav class="navbar navbar-expand-lg navbar-light bg-header-light">
-      <div class="container">
-        <a class="navbar-brand" routerLink = ""><img
-            src="/assets/images/gk.png" class="logo"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" routerLink = "">Anasayfa <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item  dropdown">
-              <a class="nav-link" id="navbarDropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">
-                Admin
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" routerLink="admin/brands">Markalar</a>
-                <a class="dropdown-item" routerLink="admin/colors">Renkler</a>
-                <a class="dropdown-item" routerLink="admin/cars">Araçlar</a>
-              </div>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" routerLink = "/cars">Araçlar</a>
-            </li>
-
-            <li class="nav-item ">
-              <a class="nav-link" routerLink = "/customers">Müşteriler</a>
-            </li>
-
-            <li class="nav-item ">
-              <a class="nav-link" routerLink = "/rentals">Kiralamalar</a>
-            </li>
-            <li class="nav-item   dropdown">
-              <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Galeriler
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="foto_galeri.html">Foto Galeri</a>
-                <a class="dropdown-item" href="video_galeri.html">Video Galeri</a>
-              </div>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="iletisim.html">&#304;leti&#351;im</a>
-            </li>
-          </ul>
-          
-        </div>
-      </div>
-    </nav>
-  </div>
-</div>
-
-<section class="main-content">
-  <div class="container">
-
-
-    
-
-    
-
-        <!-- <div class="row">
-          <div class="col-12 col-md-12">
-            <h3 class="main-title text-center">Tetri Car Rental</h3>
-          </div>
-        </div>
-        <hr>
-        <div class="row">
-          <div class="col-12 col-md-12">
-            <img src="/assets/images/uploads-203cd-2.jpg" width="540px;" class="content-image img-fluid">
-            <p>Tetri Car Rental, kuruldu&#287;u g&uuml;nden itibaren g&uuml;&ccedil;l&uuml; sermayesi, tecr&uuml;beli
-              ekibi, geni&#351; ara&ccedil; filosu, s&uuml;rd&uuml;rd&uuml;&#287;&uuml; d&uuml;r&uuml;st ve ilkeli
-              hizmet anlay&#305;&#351;&#305; ile siz de&#287;erli m&uuml;&#351;terilerimizin tam deste&#287;ini
-              kazanm&#305;&#351; ve y&#305;llarca &#351;irketinizin veya &#351;ahs&#305;n&#305;z&#305;n ihtiya&ccedil;
-              duydu&#287;u t&uuml;m ara&ccedil;lara T&uuml;rkiye&rsquo;nin her yerinde g&uuml;venli, yedeklenmek
-              suretiyle devaml&#305; ve sat&#305;&#351; sonras&#305; hizmet kalitesiyle sorunsuz bir &#351;ekilde sahip
-              olman&#305;z&#305; sa&#287;lam&#305;&#351;t&#305;r.</p>
-
-            <p>Hedefimiz her zaman h&#305;zl&#305; ve riskli b&uuml;y&uuml;mek yerine do&#287;ru zamanda do&#287;ru
-              m&uuml;&#351;teriyle bulu&#351;mak olmu&#351;tur. S&uuml;rekli yenilenen&nbsp;ara&ccedil; filosu&nbsp;ile
-              7/24 kesintisiz hizmet veren&nbsp;Tetri Car Rental&rsquo;dan kiralad&#305;&#287;&#305;n&#305;z her
-              ara&ccedil;ta size tek kalan sadece keyifli bir s&uuml;r&uuml;&#351; olacakt&#305;r.</p>
-
-            <p>Ara&ccedil; kiralaman&#305;n firman&#305;za sa&#287;layaca&#287;&#305; avantajlar&#305; ile
-              beraber&nbsp;Tetri Car Rental'&#305;n uygun kira ko&#351;ullar&#305;na ara&ccedil; marka ve model
-              se&ccedil;eneklerini eklerseniz, size tek bir i&#351; d&uuml;&#351;&uuml;yor.</p>
-
-            <p>En b&uuml;y&uuml;k sermayemiz g&uuml;venilir insan olmakt&#305;r..</p>
-          </div>
-        </div> -->
-
-
-        
-        <router-outlet></router-outlet>
-
-     
-
-    <div class="row divider"></div>
-
-  </div>
-</section>
-
-<section class="main-footer bg-light">
-  <div class="container">
-    <div class="row divider"></div>
     <div class="row">
-      <div class="col-12 col-md-12">
-        <div>
-          <h3 class="main-title text-center">Duyurular</h3>
-          <hr>
-        </div>
-      </div>
+     
       <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-        <a href="klasik-arac-kiralama.html">
+        <a href="#">
           <img src="/assets/images/no-image.png" class="news-image opacity img-fluid">
           <div class="bgcolor">
-            <h5 class="title text-white">Klasik ara&ccedil; kiralama</h5>
+            <h5 class="title text-white">LoremipsumLoremipsumemipsumLor</h5>
           </div>
         </a>
         <p></p>
-        <p>ARA&Ccedil; &#350;&Ouml;F&Ouml;RL&Uuml; VER&#304;LMEKTED&#304;R</p>
+        <p>LoremipsumLoremipsumemipsumLorepsumLorempsum</p>
 
       </div>
       <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-        <a href="samsun-ofis-hizmete-basladi-0532-607-86-50.html">
+        <a href="#">
           <img src="/assets/images/no-image.png" class="news-image opacity img-fluid">
           <div class="bgcolor">
-            <h5 class="title text-white">SAMSUN OF&#304;S H&#304;ZMETE BA&#350;LADI 0532 607 86 50</h5>
+            <h5 class="title text-white">LoremipsumLoremipsumLoremipsumLoremipsum</h5>
           </div>
         </a>
         <p></p>
-        <p>7/24 H&#304;ZMET VEREN YEN&#304; ADRES&#304;M&#304;Z</p>
+        <p>LoremipsumLoremipsumemipsumLorepsumLorempsum</p>
 
       </div>
       <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-        <a href="tetricar-samsun-0532-607-86-50.html">
-          <img src="/assets/images/no-image.png"
-            class="news-image opacity img-fluid">
+        <a href="#">
+          <img src="/assets/images/no-image.png" class="news-image opacity img-fluid">
           <div class="bgcolor">
-            <h5 class="title text-white">Tetricar Samsun 0532 607 86 50</h5>
+            <h5 class="title text-white">LoremipsumLoremipsLoremipsum</h5>
           </div>
         </a>
         <p></p>
-        <p>Tetri car Samsun Atakum &#351;ubemiz &ccedil;ok yak&#305;nda hizmete a&ccedil;&#305;lacakt&#305;r</p>
+        <p>LoremipsumLoremipsumLoremiLoremipsum</p>
 
       </div>
     </div>
@@ -196,9 +79,14 @@
     <div class="row divider"></div>
     <div class="row">
       <div class="col-12 col-sm-4 col-md-4">
-        <h5 class="main-title">Hakk&#305;m&#305;zda</h5>
+        <h5 class="main-title">Hakkımızda</h5>
         <hr>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum
       </div>
       <div class="col-12 col-sm-4 col-md-4">
         <h5 class="main-title">Duyurular</h5>
@@ -210,17 +98,17 @@
               src="/assets/images/no-image.png" alt="">
 
             <div class="media-body">
-              <h6 class="mt-0">Klasik ara&ccedil; kiralama</h6>
+              <h6 class="mt-0">LoremipsumLoremipsumemipsum</h6>
             </div>
 
           </div>
         </a>
-        
+
 
 
       </div>
       <div class="col-12 col-sm-4 col-md-4">
-        <h5 class="main-title">&#304;leti&#351;im</h5>
+        <h5 class="main-title">İletişim</h5>
         <hr>
         <dl class="row">
 
@@ -253,7 +141,7 @@
       <div class="footer_main_left col-12 col-md-6">
         <span>Copyright &copy; 2021 - GK Rental </span>
       </div>
-      
+
     </div>
   </div>
 </section>
@@ -263,5 +151,3 @@
     <img style="width:60px;" src="/assets/images/img-whatsapp.png" alt="whatsapp">
   </a>
 </div>
-
-

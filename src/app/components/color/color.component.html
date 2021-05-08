@@ -1,14 +1,8 @@
-
-
+<div class="mb-3">  
+  <input type="text" [(ngModel)]="colorFilterText" class="form-control" id="filterTextForColor" placeholder="Renk ara...">
+</div>
 <ul class="list-group">
-    <li routerLink="/cars" (click)="clearCurrentColor()" [class]="getAllColorClass()">Tüm Renkler</li>
-    <input style="background-color:cyan"  type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Renk ara">
-    <li (click)="setCurrentColor(color.colorId)"
-    routerLink="/cars/color/{{color.colorId}}" 
-    *ngFor="let color of colors | colorFilter:filterText" 
-    [class]="getCurrentColorClass(color.colorId)">
-    {{color.colorName | titlecase}}
-    
-  </li>
-  </ul>
- 
+  <li (click)="currentColorResetter(nullColor)" routerLink="/cars/" [class]="getAllColorsClass()">Tüm Renkler</li>
+  <li (click)="setCurrentColor(color)" routerLink="/cars/color/{{color.colorId}}" *ngFor="let color of colors | colorFilterPipe:colorFilterText" [class]="getCurrentColorClass(color)">{{color.colorName}}</li>
+</ul>
+<h6 *ngIf="currentColor != null">{{currentColor.colorName}} seçtiniz.</h6>

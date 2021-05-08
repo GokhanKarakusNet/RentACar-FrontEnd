@@ -10,45 +10,43 @@ import { ColorService } from 'src/app/services/color.service';
 })
 export class ColorComponent implements OnInit {
 
-  colors:Color[]=[];
-  currentColor:number=0;
-  filterText=''
-  constructor(private colorService:ColorService, private activatedRoute: ActivatedRoute) { }
+  colors: Color[] = [];
+  currentColor: Color;
+  nullColor:Color
+  colorFilterText="";
+
+  constructor(private colorService: ColorService) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      if (params['colorId']) {
-        this.currentColor=params['colorId'];
-      }
-    }); 
     this.getColors();
   }
-  getColors(){
-    this.colorService.getColors().subscribe(response=>{
-      this.colors=response.data;
+  getColors() {
+    this.colorService.getColors().subscribe((response) => {
+      this.colors = response.data;
     });
-
-  }
-  setCurrentColor(color:number){
-    this.currentColor=color;
-  }
-  clearCurrentColor()
-  {
-    //let emptyColor:Color = {id:0, name:""};
-    this.currentColor=0;
-    this.getAllColorClass();
-  }
-  getCurrentColorClass(color:number){
-    if(color==this.currentColor){
-      return "list-group-item list-group-item-action list-group-item-primary"
-    }
-    return "list-group-item list-group-item-action list-group-item-light"
-  }
-  getAllColorClass(){
-    if(!this.currentColor||this.currentColor===0){
-      return "list-group-item list-group-item-action list-group-item-primary"
-    }
-    return "list-group-item list-group-item-action list-group-item-light"
   }
 
+  setCurrentColor(color: Color) {
+    this.currentColor = color;
+  }
+
+  getCurrentColorClass(color: Color) {
+    if (color == this.currentColor) {
+      return "list-group-item list-group-item-success"
+    }else{
+      return "list-group-item"
+    }
+  }
+
+  getAllColorsClass(){
+    if(this.currentColor == null ) {
+      return "list-group-item list-group-item-success"
+    }else{
+      return "list-group-item"
+    }         
+  }
+
+  currentColorResetter(nullColor:Color){
+    this.currentColor=nullColor;        
+  }
 }

@@ -31,7 +31,7 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "src/custom-theme.scss",
               "./node_modules/ngx-toastr/toastr.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -49,6 +49,7 @@
               
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+
               "src/assets/js/popper-popper.min.js",
               
               "src/assets/js/magnific-popup-jquery.magnific-popup.min.js",

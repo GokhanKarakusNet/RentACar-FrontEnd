@@ -1,0 +1,94 @@
+<mat-sidenav-container class="sidenav-container mat-app-background" [ngClass]="{'dark-theme-mode':isDarkTheme}">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === true">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home">Ana Sayfa</a>
+      <a mat-list-item routerLink="/cars">Araçlar</a>
+      <a mat-list-item routerLink="/rentals">Kiralanmış Araçlar</a>
+      <a mat-list-item routerLink="/brands">Markalar</a>
+      <a mat-list-item routerLink="/colors">Renkler</a>
+      <a mat-list-item routerLink="/customers">Müşteriler</a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content>
+
+    <div *ngIf="loaderService.isLoading | async" class="loader-container">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <mat-spinner style="top: 50%; left: 50%;"></mat-spinner>
+    </div>
+
+    <mat-toolbar class="bgcolor text-white">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <div class="container">
+      <span>Araç Kiralama</span></div>
+      <app-profile class="col-md-2 offset-md-8"></app-profile>
+
+      <!-- <div >
+        <button mat-raised-button color="warn" (click)="logOut()" style="margin-left: 120px;">Çıkış Yap</button>
+      </div> -->
+      <span style="flex:auto;"></span>
+      <mat-slide-toggle [(ngModel)]="isDarkTheme" labelPosition="before" (change)="storeThemeSelection()">
+        <mat-icon>bedtime</mat-icon>
+      </mat-slide-toggle>
+    </mat-toolbar>
+<div class="menubar">
+            <nav class="navbar navbar-expand-lg navbar-light bg-header-light">
+              <div class="container">
+                <a class="navbar-brand" routerLink = "/home"><img
+                    src="/assets/images/gk.png" class="logo"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+        
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" routerLink = ""><h2><b>Anasayfa</b></h2>  <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li  *ngIf="isLogged() == true" class="nav-item  dropdown">
+                      <a class="nav-link" id="navbarDropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false">
+                        <h2><b>Admin</b></h2> 
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" routerLink="admin/brands"><h3>Markalar</h3></a>
+                        <a class="dropdown-item" routerLink="admin/colors"><h3>Renkler</h3></a>
+                        <a class="dropdown-item" routerLink="admin/cars"><h3>Araçlar</h3></a>
+                      </div>
+                    </li>
+                    
+                    <li class="nav-item ">
+                      <a class="nav-link" routerLink = "/cars"><h2><b>Araçlar</b></h2> </a>
+                    </li>
+        
+                    <li class="nav-item ">
+                      <a class="nav-link" routerLink = "/customers"><h2><b>Müşteriler</b></h2></a>
+                    </li>
+        
+                    <li class="nav-item ">
+                      <a class="nav-link" routerLink = "/rentals"><h2><b>Kiralamalar</b></h2></a>
+                    </li>
+                  
+                    <li class="nav-item ">
+                      <a class="nav-link" href="#"><h2><b>İletişim</b></h2></a>
+                    </li>
+                  </ul>
+                  
+                </div>
+              </div>
+            </nav>
+          </div>
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+        

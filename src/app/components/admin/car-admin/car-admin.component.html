@@ -5,244 +5,250 @@
             <div class=" d-grid gap-2 d-md-flex justify-content-start">
                 <input (click)="selectionAdd(true)" type="radio" class="btn-check" name="options-outlined"
                     id="success-outlined" autocomplete="off" checked>
-                <label class="btn btn-outline-success" for="success-outlined">Araç Ekle</label>
-
+                <label class="btn btn-outline-success" for="success-outlined"><i class="bi bi-plus-circle-dotted"></i></label>
+                
                 <input (click)="selectionEdit(true)" type="radio" class="btn-check" name="options-outlined"
                     id="danger-outlined" autocomplete="off">
-                <label class="btn btn-outline-danger" for="danger-outlined">Güncelle / Sil</label>
+                <label class="btn btn-outline-danger" for="danger-outlined"><i class="bi bi-tools"></i> Güncelle/Sil</label>
             </div>
         </div>
     </div>
 </div>
 
 <div *ngIf="selectionforAdd && selectionForEdit==false">
-    <!-- <div class="container">
+    <div class="container">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="title">Araç Ekle</h5>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="carAddForm">
-                        <label for="brandId">Marka</label>
-                        <div class="form-group">
-                            <input type="number" id="brandId" formControlName="brandId" class="form-control"
-                                placeholder="brandId">
-                        </div>
-                        <label for="colorId">Renk</label>
-                        <div class="form-group">
-                            <input type="number" id="colorId" formControlName="colorId" class="form-control"
-                                placeholder="colorId">
-                        </div>
-                        <label for="carName">Model</label>
-                        <div class="form-group">
-                            <input type="text" id="carName" formControlName="carName" class="form-control"
-                                placeholder="Model">
-                        </div>
-                        <label for="modelYear">Model Yılı</label>
-                        <div class="form-group">
-                            <input type="number" id="modelYear" formControlName="modelYear" class="form-control"
-                                placeholder=" Yılı">
-                        </div>
-                        <label for="dailyPrice">Günlük Kira Bedeli ₺</label>
-                        <div class="form-group">
-                            <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control"
-                                placeholder="Günlük Kira Ücreti ₺">
-                        </div>
-                        <label for="description">Açıklama</label>
-                        <div class="form-group">
-                            <input type="text" id="description" formControlName="description" class="form-control"
-                                placeholder="Açıklama">
+
+            <mat-card class="example-card mt-3">
+                <div class="col-md-6 mx-auto justify-content-center align-items-center flex-column"
+                    style="padding-left: 100px;">
+                    <mat-card-header>
+                        <mat-card-title class="mb-4 mt-3" style="padding-left: 120px;">Yeni Araç Ekle</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form [formGroup]="carAddForm">
+
+                            <div class="form-group">
+                                <mat-form-field appearance="fill" class="example-form-select">
+                                    <mat-label>Marka Seçiniz</mat-label>
+                                    <mat-select formControlName="brandId">
+                                        <mat-option *ngFor="let brand of brands" id="brandId" [value]="brand.brandId">
+                                            {{brand.brandName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Araç Adı</mat-label>
+                                    <input matInput type="text" id="carName" formControlName="carName" />
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field appearance="fill" class="example-form-select">
+                                    <mat-label>Renk Seçiniz</mat-label>
+                                    <mat-select formControlName="colorId">
+                                        <mat-option *ngFor="let color of colors" id="colorId" [value]="color.colorId">
+                                            {{color.colorName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Modeli</mat-label>
+                                    <input matInput type="number" id="modelYear" formControlName="modelYear" />
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Günlük Kira Fiyatı</mat-label>
+                                    <input matInput type="number" id="dailyPrice" formControlName="dailyPrice" />
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Açıklaması</mat-label>
+                                    <input matInput type="text" id="description" formControlName="description" />
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="form-group">
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Findeks Değeri</mat-label>
+                                    <input matInput type="number" id="findeksValue" formControlName="minFindeksScore" />
+                                </mat-form-field>
+                            </div>
+
+                        </form>
+                    </mat-card-content>
+                    <mat-card-actions>
+
+                        <div class="card-footer">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button mat-raised-button color="primary" style="margin-left:350px"
+                                    (click)="addCar()">Ekle</button>
+                                
+                            </div>
                         </div>
 
-                    </form>
+                    </mat-card-actions>
                 </div>
-                <div class="card-footer">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-fill btn-success" (click)="addCar()">Ekle</button>
+                <!-- <app-car-image-add [carId]="carId"></app-car-image-add> -->
+
+            </mat-card>
+        </div>
+    </div>
+
+
+
+</div>
+<div class="container">
+    <div *ngIf="selectionforAdd==false && selectionForEdit">
+        <div *ngIf="selectedCarDataLoaded==false" class="row container">
+            <div *ngFor="let car of allCars" class="col-9 col-sm-6 col-md-4 col-lg-4 text-center">
+                
+                <div class="card">
+
+                    <img class="card-img-top opacity" src="{{imageUrl}}{{car.mainImage.imagePath}}" alt="{{car.description}}">
+                    <div class="card-body">
+                        <div class="bgcolor">
+                          <h3 class="card-title text-white">{{car.brandName}} {{car.carName}}</h3>
+                        </div>
+                        <h4 class="text-center">
+                            <b>Fiyat :</b> {{car.dailyPrice}} TL / Gün <br>
+                            <b>Renk :</b> {{car.colorName | titlecase}}
+                          </h4>
+                          <div class="card-footer">
+                            <button mat-raised-button color="primary" (click)="getSelectedCar(car.carId)"
+                            class="btn btn-dark" style="margin-right: 1cm;">Güncelle</button>
+                        
+                       
+
+                        <button (click)="deleteCar(car.carId)" mat-raised-button color="danger" 
+                      class="btn btn-danger">Sil</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </div> -->
 
-    <div class="container">
-        <div class="col-md-12">
-      
-          <mat-card class="example-card mt-3">
-            <div class="col-md-6 mx-auto justify-content-center align-items-center flex-column" style="padding-left: 100px;">
-              <mat-card-header>
-                <mat-card-title class="mb-4 mt-3" style="padding-left: 120px;">Araç Ekle</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <form [formGroup]="carAddForm">
-      
-                  <div class="form-group">
-                    <mat-form-field appearance="fill" class="example-form-select">
-                      <mat-label>Marka Seçiniz</mat-label>
-                      <mat-select formControlName="brandId">
-                        <mat-option *ngFor="let brand of brands" id="brandId"  [value]="brand.brandId">
-                          {{brand.brandName}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-    
-                  <div class="form-group">
-                    <mat-form-field class="example-form-field">
-                      <mat-label>Araç Adı</mat-label>
-                      <input matInput type="text" id="carName" formControlName="carName"/>
-                    </mat-form-field>
-                  </div>
-      
-                  <div class="form-group">
-                      <mat-form-field appearance="fill" class="example-form-select">
-                        <mat-label>Renk Seçiniz</mat-label>
-                        <mat-select formControlName="colorId">
-                          <mat-option *ngFor="let color of colors" id="colorId"  [value]="color.colorId">
-                            {{color.colorName}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                  </div>
-      
-                  <div class="form-group">
-                    <mat-form-field class="example-form-field">
-                      <mat-label>Modeli</mat-label>
-                      <input matInput type="number" id="modelYear" formControlName="modelYear"/>
-                    </mat-form-field>
-                  </div>
-      
-                  <div class="form-group">
-                    <mat-form-field class="example-form-field">
-                      <mat-label>Günlük Kira Fiyatı</mat-label>
-                      <input matInput type="number" id="dailyPrice" formControlName="dailyPrice"/>
-                    </mat-form-field>
-                  </div>
-      
-                  <div class="form-group">
-                    <mat-form-field class="example-form-field">
-                      <mat-label>Açıklaması</mat-label>
-                      <input matInput type="text" id="description" formControlName="description"/>
-                    </mat-form-field>
-                  </div>
-    
-    
-                  <div class="form-group">
-                    <mat-form-field class="example-form-field">
-                      <mat-label>Findeks Değeri</mat-label>
-                      <input matInput type="number" id="findeksValue" formControlName="findeksValue"/>
-                    </mat-form-field>
-                  </div>
-      
-              </form>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-raised-button color="primary" style="margin-left:350px" (click)="addCar()" >Ekle</button>
-              </mat-card-actions>
-            </div>
-          <!-- <app-car-image-add [carId]="carId"></app-car-image-add> -->
-      
-          </mat-card>
-        </div>
-      </div>
-      
-      
-      
-</div>
 
-<div *ngIf="selectionforAdd==false && selectionForEdit">
-    <div *ngIf="selectedCarDataLoaded==false" class="row container">
-        <div *ngFor="let car of allCars" class="card " style="padding:auto; padding-top: 10px; width: 18rem;">
-            <img src="{{imageUrl}}{{car.carImages[0]?.imagePath}}" class="card-img-top" style="height: 7rem;" />
-            <div class="card-body">
-                <h5 class="card-title">{{ car.carName }}</h5>
-                <p class="card-text" style="height: 3rem">{{ car.description }}</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><strong>{{ car.brandName }}</strong></li>
-                <li class="list-group-item">{{ car.colorName }}</li>
-                <li class="list-group-item">Günlük {{car.dailyPrice}} ₺</li>
-            </ul>
-            <div class="card-body">
-                <div class="d-grid gap-2 d-md-flex justify-content-between">
-                    <button class="btn btn-success" (click)="getSelectedCar(car.carId)" type="button">Güncelle</button>
-                    <button class="btn btn-danger" type="button">Sil</button>
+
+
+
+           
+    
+    
+    
+    
+    
                 </div>
-            </div>
+              </div>
+
+
+
+
         </div>
     </div>
 
     <div *ngIf="selectedCarDataLoaded==true" class="content">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="title">Aracı Güncelle</h5>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="carUpdateForm">
 
-                        <div class="mb-3">
-                            <label for="brandId">Mevcut Marka: {{selectedCar.brandId}}</label>
-                            <div class="form-group">
-                                <input type="number" id="brandId" formControlName="brandId" class="form-control"
-                                    placeholder="Yeni markayı yazınız.">
+        <div class="container">
+            <div class="col-md-12">
+
+                <mat-card class="example-card mt-3">
+                    <div class="col-md-6 mx-auto justify-content-center align-items-center flex-column"
+                        style="padding-left: 100px;">
+                        <mat-card-header>
+                            <mat-card-title class="mb-4 mt-3" style="padding-left: 120px;">Araç Güncelle
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <form [formGroup]="carUpdateForm">
+
+                                <div class="form-group">
+                                    <mat-form-field appearance="fill" class="example-form-select">
+                                        <mat-label>Marka Seçiniz</mat-label>
+                                        <mat-select formControlName="brandId">
+                                            <mat-option *ngFor="let brand of brands" id="brandId"
+                                                [value]="brand.brandId">
+                                                {{brand.brandName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+
+
+
+                                <div class="form-group">
+                                    <mat-form-field class="example-form-field" *ngIf="selectedCar">
+                                        <mat-label>Araç Adı</mat-label>
+                                        <input matInput type="text" id="carName" formControlName="carName" />
+
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="form-group">
+                                    <mat-form-field appearance="fill" class="example-form-select" *ngIf="selectedCar">
+                                        <mat-label>Renk Seçiniz</mat-label>
+                                        <mat-select formControlName="colorId">
+                                            <mat-option *ngFor="let color of colors" id="colorId"
+                                                [value]="color.colorId">
+                                                {{color.colorName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="form-group">
+                                    <mat-form-field class="example-form-field" *ngIf="selectedCar">
+                                        <mat-label>Modeli</mat-label>
+                                        <input matInput type="text" id="modelYear" formControlName="modelYear" />
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="form-group">
+                                    <mat-form-field class="example-form-field" *ngIf="selectedCar">
+                                        <mat-label>Günlük Kira Fiyatı</mat-label>
+                                        <input matInput type="number" id="dailyPrice" formControlName="dailyPrice" />
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="form-group">
+                                    <mat-form-field class="example-form-field" *ngIf="selectedCar">
+                                        <mat-label>Açıklaması</mat-label>
+                                        <input matInput type="text" id="description" formControlName="description" />
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="form-group">
+                                    <mat-form-field class="example-form-field" *ngIf="selectedCar">
+                                        <mat-label>Findeks Değeri</mat-label>
+                                        <input matInput type="number" id="minFindeksScore"
+                                            formControlName="minFindeksScore" />
+                                    </mat-form-field>
+                                </div>
+
+                            </form>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button mat-raised-button color="primary"
+                                        (click)="updateCar(selectedCar.carId)">Güncelle</button>
+                                    <button mat-raised-button color="primary" style="margin-left:10px"
+                                        (click)="selectedCarResetter(false)">Geri</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="colorId">Mevcut Renk: {{selectedCar.colorId}}</label>
-                            <div class="form-group">
-                                <input type="number" id="colorId" formControlName="colorId" class="form-control"
-                                    placeholder="Yeni rengi yazınız.">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="carName">Mevcut Model: {{selectedCar.carName}}</label>
-                            <div class="form-group">
-                                <input type="text" id="carName" formControlName="carName" class="form-control"
-                                    placeholder="Yeni modeli yazınız.">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modelYear">Mevcut Model Yılı: {{selectedCar.modelYear}}</label>
-                            <div class="form-group">
-                                <input type="number" id="modelYear" formControlName="modelYear" class="form-control"
-                                    placeholder="Güncellemek istediğiniz tarihi yazınız.">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="dailyPrice">Mevcut Günlük Kira Bedeli {{selectedCar.dailyPrice}} ₺</label>
-                            <div class="form-group">
-                                <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control"
-                                    placeholder="Yeni günlük kira değerini yazınız.">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description">Mevcut Açıklama: {{selectedCar.description}}</label>
-                            <div class="form-group">
-                                <input type="text" id="description" formControlName="description" class="form-control"
-                                    placeholder="Yeni açıklamayı yazınız">
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-
-
-                    </form>
-                </div>
-                <div class="card-footer">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-fill btn-success"
-                            (click)="updateCar(selectedCar.carId)">Güncelle</button>
-                        <button class="btn btn-fill btn-success" (click)="selectedCarResetter(false)">Geri</button>
+                        </mat-card-actions>
                     </div>
-                </div>
+                </mat-card>
             </div>
         </div>
     </div>
-</div>

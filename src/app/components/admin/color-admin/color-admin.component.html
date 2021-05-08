@@ -1,61 +1,121 @@
-<div class="container mb-3">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header"><h5 class="title">Yeni Renk Ekle</h5></div>
-            <div class="card-body">
-                <form [formGroup]="colorAddForm">
-                    <label for="name"></label>
-                    <div class="form-group mb-3">
-                        <input type="text" id="name" formControlName="colorName" class="form-control" placeholder="Renk adı">
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-fill btn-success" (click)="addColor()">Ekle</button>
-                </div>                
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container">
-    <table class="table">
-    <thead>
-      <tr>        
-        <th scope="col">İsim</th>
-        <th scope="col">Güncelle</th>
-        <th scope="col">Sil</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let color of allColors">
-      <tr >        
-        <td>{{color.colorName}}</td>
-        <td><button class="btn btn-success btn-sm" (click)="getColorByColorId(color.colorId)">Güncelle</button></td>
-        <td><button class="btn btn-danger btn-sm" (click)="deleteColor(color.colorId)">Sil</button></td>
-      </tr>      
-    </tbody>
-  </table>
-</div>
+    <div class="col-md-5">
+        <div class="mb-3">
+            <h5>İşlem tipi</h5>
+            <div class=" d-grid gap-2 d-md-flex justify-content-start">
+                <input (click)="selectionAdd(true)" type="radio" class="btn-check" name="options-outlined"
+                    id="success-outlined" autocomplete="off" checked>
+                <label class="btn btn-outline-success" for="success-outlined"><i class="bi bi-plus-circle-dotted"></i></label>
 
-<div *ngIf="selectedColorDataLoaded" class="container mb-3">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header"><h5 class="title">Markayı Güncelle</h5></div>
-            <div class="card-body">
-                <form [formGroup]="colorUpdateForm">
-                    <label for="name">Mevcut isim: {{selectedColor.colorName}}</label>
-                    <div class="form-group mb-3">
-                        <input type="text" id="name" formControlName="colorName" class="form-control" placeholder="Eski ismi yazıp güncelle butonuna basınız.">
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-fill btn-success" (click)="updateColor()">Güncelle</button>
-                </div>                
+                <input (click)="selectionEdit(true)" type="radio" class="btn-check" name="options-outlined"
+                    id="danger-outlined" autocomplete="off">
+                <label class="btn btn-outline-danger" for="danger-outlined"><i class="bi bi-tools"></i> Güncelle/Sil</label>
             </div>
         </div>
     </div>
+</div>
 
+<div *ngIf="selectionForAdd && selectionForEdit==false">
+    <div class="container">
+        <div class="col-md-12">
+
+            <mat-card class="example-card mt-3">
+                <div class="col-md-6 mx-auto justify-content-center align-items-center flex-column"
+                    style="padding-left: 100px;">
+                    <mat-card-header>
+                        <mat-card-title class="mb-4 mt-3" style="padding-left: 120px;">Yeni Renk Ekle</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form [formGroup]="colorAddForm">
+
+                          
+
+                            <div class="form-group">
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Renk Adı</mat-label>
+                                    <input matInput type="text" id="colorName" formControlName="colorName" />
+                                </mat-form-field>
+                            </div>
+
+                           
+
+                        </form>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary" style="margin-left:350px"
+                            (click)="addColor()">Ekle</button>
+                    </mat-card-actions>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="selectionForAdd==false && selectionForEdit">
+    <div *ngIf="selectedColorDataLoaded==false" class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">İsim</th>
+                    <th scope="col">Güncelle</th>
+                    <th scope="col">Sil</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let color of allColors">
+                <tr>
+                    <td>{{color.colorName}}</td>
+                    <td><button class="btn btn-success btn-sm" (click)="getColorByColorId(color.colorId)">Güncelle</button>
+                    </td>
+                    <td><button class="btn btn-danger btn-sm" (click)="deleteColor(color.colorId)">Sil</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="selectedColorDataLoaded" class="container mb-3">
+        <div class="container">
+            <div class="col-md-12">
+
+                <mat-card class="example-card mt-3">
+                    <div class="col-md-6 mx-auto justify-content-center align-items-center flex-column"
+                        style="padding-left: 100px;">
+                        <mat-card-header>
+                            <mat-card-title class="mb-4 mt-3" style="padding-left: 120px;">Renk Güncelle 
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <form [formGroup]="colorUpdateForm"  >
+
+                            
+
+                            
+
+                                <div class="form-group">
+                                    <mat-form-field class="example-form-field">
+                                        <mat-label>Renk Adı</mat-label>
+                                        <input matInput type="text" id="colorName" formControlName="colorName"/>
+                                            
+                                    </mat-form-field>
+                                </div>
+
+                               
+
+                            </form>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button mat-raised-button color="primary" 
+                                (click)="updateColor()">Güncelle</button>
+                                <button mat-raised-button color="primary" style="margin-left:10px"
+                                 (click)="resetSelectedColor(false)">Geri</button>
+                            </div>
+                        </div>
+                        </mat-card-actions>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+
+    </div>
 </div>

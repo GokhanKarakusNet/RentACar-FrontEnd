@@ -1,41 +1,43 @@
-<div class="row">
-    <div class="col-12 col-md-12">
-      <h3 class="main-title text-center">Kiralamalar</h3>
+<div class="container">
+
+  <div class="subheader">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="subheader-title text-center text-white">Kiralamalar</h1>
+          <hr>
+        </div>
+      </div>
     </div>
   </div>
-  <hr>
 
 
   <div class="row">
-   
-      <div class="col-md-12 text-dark">
-        <div *ngIf="dataLoaded==false" class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+
+    <div class="col-md-12 text-dark">
+      <div *ngIf="dataLoaded==false" class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
       <table *ngIf="dataLoaded==true" class="table table-striped table-light table-hover">
         <thead>
-            <tr>
-                <th>Araç Adı</th>
-                <th>Müşteri Adı</th>
-                <th>Fiyatı</th>
-                <th>Kiralama Tarihi</th>
-                <th>Teslim Tarihi</th>
-                <th></th>
-            </tr>
+          <tr>
+            <th>Araç markası</th>
+            <th>Araç modeli</th>
+            <th>Müşteri</th>
+            <th>Kiralama Başlangıç</th>
+            <th>Kiralama Bitiş</th>
+          </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let rental of rentals" routerLink = "/rentals/rentalDetail/{{rental.rentalId}}">
-                <td>{{rental.carName}} {{rental.brandName}}</td>
-                <td>{{rental.customerFirstName}} {{rental.customerLastName}}</td>
-                <td>{{rental.dailyPrice}}</td>
-                <td>{{rental.rentDate | date:'dd/MM/yyyy'}}</td>
-                <td *ngIf="(rental.returnDate!=null) ; then thenBlock else elseBlock"></td>
-                <ng-template #thenBlock><td>{{rental.returnDate | date:'dd/MM/yyyy'}}</td></ng-template>
-                <ng-template #elseBlock><td>--/--/----</td></ng-template>
-                <td><i class="fas fa-list"></i></td>
-                
-            </tr>
+          <tr *ngFor="let rental of rentalDtos">
+            <td>{{rental.carName}}</td>
+            <td>{{rental.brandName}}</td>
+            <td>{{rental.customerFullName}}</td>
+            <td>{{rental.rentDate}}</td>
+            <td>{{rental.returnDate}}</td>
+          </tr>
         </tbody>
-    </table>
-      </div>
+      </table>
+    </div>
+  </div>
 </div>

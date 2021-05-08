@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Brand } from 'src/app/models/brand';
 import { BrandService } from 'src/app/services/brand.service';
-import { EventService } from 'src/app/services/event-service.service';
 
 @Component({
   selector: 'app-brand',
@@ -10,53 +8,46 @@ import { EventService } from 'src/app/services/event-service.service';
   styleUrls: ['./brand.component.css']
 })
 export class BrandComponent implements OnInit {
-  brands:Brand[]=[];
-  currentBrand:number=0;
-  selectedBrands:Brand[]=[];
-  filterText = '';
-  constructor(private brandService:BrandService,
-    private activatedRoute: ActivatedRoute,
-    private eventService:EventService) { }
+  brands: Brand[] = [];
+  currentBrand:Brand;
+  nullBrand:Brand;
+  brandFilterText="";
 
-  ngOnInit(): void {
-    
+  constructor(private brandService: BrandService) {}
+
+  ngOnInit(): void {       
     this.getBrands();
   }
 
- getBrands(){
-    this.brandService.getBrands().subscribe(response=>{
-      this.brands=response.data;
+  getBrands() {
+    this.brandService.getBrands().subscribe((response) => {
+      this.brands = response.data;
     });
   }
 
-  setCurrentBrand(brand:number){
+  setCurrentBrand(brand: Brand) {
     this.currentBrand=brand;
   }
-  clearCurrentBrand()
-  {
-    //let emptyBrand:Brand = {id:0, name:""};
-    this.currentBrand=0;
-    this.getAllBrandClass();
-  }
-  getCurrentBrandClass(brand:number){
+
+  getCurrentBrandClass(brand:Brand){
     if(brand==this.currentBrand){
-      return "list-group-item list-group-item-action list-group-item-primary"
+      return "list-group-item list-group-item-success"
+    }else{
+      return "list-group-item"
     }
-    return "list-group-item list-group-item-action list-group-item-light"
   }
-  getAllBrandClass(){
-    if(!this.currentBrand||this.currentBrand===0){
-      return "list-group-item list-group-item-action list-group-item-primary"
-    }
-    return "list-group-item list-group-item-action list-group-item-light"
+  getAllBrandsClass(){
+    if(this.currentBrand == null ) {
+      return "list-group-item list-group-item-success"
+    }else{
+      return "list-group-item"
+    }         
   }
 
-  selectBrand(brand:Brand){
-    this.selectedBrands.push(brand);
-    this.emitBrands();
+  currentBrandResetter(nullBrand:Brand){
+    this.currentBrand=nullBrand;
+        
   }
   
-  emitBrands(){
-    this.eventService.emit<Brand[]>(this.selectedBrands);
-  }
 }
+

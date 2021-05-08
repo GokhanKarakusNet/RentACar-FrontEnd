@@ -15,26 +15,27 @@ export class ColorService {
   constructor(private httpClient:HttpClient) { }
 
   getColors():Observable<ListResponseModel<Color>>{
-    let newPath = this.apiUrl + "getall";
-    return this.httpClient.get<ListResponseModel<Color>>(newPath);
+    let newPath= this.apiUrl+"getall"
+    return this.httpClient.get<ListResponseModel<Color>>(newPath)
   }
 
-  getColorByColorId(id:number):Observable<SingleResponseModel<Color>>{
-    let newPath=this.apiUrl+"getbyid?id="+id;
-    return this.httpClient.get<SingleResponseModel<Color>>(newPath);
+  addColor(color:Color):Observable<ResponseModel>{
+    let newPath = this.apiUrl+"add"
+    return this.httpClient.post<ResponseModel>(newPath,color);
   }
 
-  add(color:Color):Observable<ResponseModel>{
-    return this.httpClient.post<ResponseModel>(this.apiUrl+"add",color)
+  getColorByColorId(colorId:number):Observable<SingleResponseModel<Color>>{
+    let newPath = this.apiUrl+"getbyid?id="+colorId;
+    return this.httpClient.get<SingleResponseModel<Color>>(newPath)
   }
 
   updateColor(color:Color):Observable<ResponseModel>{
-    let newPath = this.apiUrl+"update";
-    return this.httpClient.post<ResponseModel>(newPath, color)
+    let newPath = this.apiUrl+"update"
+    return this.httpClient.post<ResponseModel>(newPath,color)
   }
 
-  deleteColor(id:number):Observable<ResponseModel>{
-    let newPath = this.apiUrl+"delete?id="+id;
-    return this.httpClient.post<ResponseModel>(newPath,id)
+  deleteColor(color:Color):Observable<ResponseModel>{
+    let newPath=this.apiUrl+"delete"
+    return this.httpClient.post<ResponseModel>(newPath,color)
   }
 }

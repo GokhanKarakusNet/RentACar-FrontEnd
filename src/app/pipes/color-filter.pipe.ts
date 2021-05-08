@@ -3,13 +3,14 @@ import { Car } from '../models/car';
 import { Color } from '../models/color';
 
 @Pipe({
-  name: 'colorFilter'
+  name: 'colorFilterPipe'
 })
 export class ColorFilterPipe implements PipeTransform {
 
-  transform(value: Color[], filterText: string): Color[] {
-    filterText=filterText?filterText.toLocaleLowerCase():""
-    return filterText?value.filter((c:Color)=>c.colorName.toLocaleLowerCase().indexOf(filterText)!==-1):value;
+  transform(value: Color[], colorFilterText: string): Color[] {
+    colorFilterText = colorFilterText?colorFilterText.toLocaleLowerCase():""
+    return colorFilterText?value.filter((c:Color)=>c.colorName.toLocaleLowerCase().indexOf(colorFilterText)!==-1):value;
   }
 
 }
+

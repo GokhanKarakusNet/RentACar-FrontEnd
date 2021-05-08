@@ -1,102 +1,112 @@
-<div class="row">
-  <div class="col-12 col-md-12">
-    <h3 class="main-title text-center">Araçlarımız</h3>
-  </div>
-</div>
-<hr>
 
-<div class="row">
-  <div class="col-md-3">
-    <app-brand></app-brand>
-    <div class="row divider"></div>
-    <app-color></app-color>
-  </div>
-
-  <div class="col-md-9">
-
-
-    <input style="background-color:cyan" type="text" [(ngModel)]="filterText" class="form-control" id="filterText"
-      placeholder="Araç ara">
-
-    <div *ngIf="filterText" class="alert alert-primary">
-      {{filterText}} aradınız
+<div class="container">
+  <div class="subheader">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="subheader-title text-center text-white">Araçlarımız</h1>
+            
+          <hr>
+        </div>
+      </div>
     </div>
-    <mat-form-field appearance="fill" style="margin-right: 5px;">
-      <mat-label>Marka Seçiniz</mat-label>
-      <mat-select [(value)]="selectedBrand" disableRipple>
-        <mat-option [value]="brand.brandId" *ngFor="let brand of brands">{{brand.brandName}}</mat-option>
-
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" style="margin-right: 15px;">
-      <mat-label>Renk Seçiniz</mat-label>
-      <mat-select [(value)]="selectedColor" disableRipple>
-        <mat-option [value]="color.colorId" *ngFor="let color of colors">{{color.colorName | titlecase}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <button mat-flat-button color="primary" (click)="getCarsByFilter()">Filtrele</button>
-    
-
-    <!-- <button *ngIf="authService.roleControl() == true" mat-flat-button color="primary" style="margin-left: 10px;" routerLink="/cars/add">Araç Ekle</button>  -->
-
-
-    <div class="row divider"></div>
-    <div *ngIf="dataLoaded==false" class="spinner-border text-dark" role="status">
-      <span class="visually-hidden">Loading...</span>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <app-brand></app-brand>
+      <div class="row divider"></div>
+      <app-color></app-color>
     </div>
-    <div class="row">
-      <div class="col-9 col-sm-6 col-md-4 col-lg-4 text-center" *ngFor="let car of cars | carFilter:filterText">
 
-        <div class="card">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="mb-3">
+            <input type="text" [(ngModel)]="carNameFilterText" class="form-control" id="filterTextForModel"
+              placeholder="Model ara..." [disabled]="responseCount==true" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group mb-4">
+            <label class="input-group-text" for="inputBrandSelection">Marka</label>
+            <select [(ngModel)]="selectedBrandIdText" class="form-select" id="inputBrandSelection">
+              <option value="Marka Seç" selected>Marka Seç</option>
+              <option *ngFor="let brand of brands" [value]="brand.brandId">
+                {{ brand.brandName }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="inputColorSelection">Renk</label>
+            <select [(ngModel)]="selectedColorIdText" class="form-select" id="inputColorSelection">
+              <option value="Renk Seç" selected>Renk Seç</option>
+              <option *ngFor="let color of colors" [value]="color.colorId">
+                {{ color.colorName }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="input-group mb-1">
+            <button class="btn btn-primary" (click)="filterByFilterBar()"><i class="bi bi-funnel"></i>
+            </button>
+            
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="responseCount==true" class="container" style="align-content: center;">
+        <div class="alert alert-danger" style="text-align: center" role="alert">
+          Aradığınız kriterlerde araç bulunmamaktadır. Filtreyi değiştirerek yeniden deneyiniz.
+        </div>
+      </div>
 
 
 
-          <div *ngIf="(car.carImages[0]?.imagePath!=null) ; then thenBlock else elseBlock"></div>
+      <div *ngIf="dataLoaded==false" class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+
+      <div class="row">
+        <div class="col-9 col-sm-6 col-md-4 col-lg-4 text-center"
+          *ngFor="let car of carDetailDto | carNameFilterPipe:carNameFilterText">
+
+          <div class="card">
+
+            <img class="card-img-top opacity" src="{{imageUrl}}{{car.mainImage.imagePath}}" alt="{{car.description}}">
 
 
-          <ng-template #thenBlock>
-            <img class="card-img-top opacity"
-              src="https://localhost:44342/Resources/Images/{{car.carImages[0]?.imagePath}}" alt="{{car.description}}">
-          </ng-template>
-          <ng-template #elseBlock>
-            <img class="card-img-top opacity" src="https://localhost:44342/Resources/Images/no-image.png"
-              alt="{{car.description}}">
-          </ng-template>
+
+
+
+            <div class="card-body">
+              <div class="bgcolor">
+                <h3 class="card-title text-white">{{car.brandName}} {{car.carName}}</h3>
+              </div>
+
+
+              <h4 class="text-center">
+                <b>Fiyat :</b> {{car.dailyPrice}} TL / Gün <br>
+                <b>Renk :</b> {{car.colorName | titlecase}}
+              </h4>
+
+              <div class="card-footer">
+                <button mat-raised-button color="primary" routerLink="/cars/cardetails/{{ car.carId }}"
+                  class="btn btn-dark" style="margin-right: 1cm;">Detaylar</button>
+                <button mat-raised-button color="primary" routerLink="/rentcar/carId/{{ car.carId }}"
+                  class="btn btn-dark">Kirala</button>
+              </div>
 
 
 
 
-          <div class="card-body">
-            <div class="bgcolor">
-              <h5 class="card-title title text-white">{{car.brandName}} {{car.carName}}</h5>
-            </div>
 
-
-            <h4 class="text-center">
-             <b>Fiyat :</b> {{car.dailyPrice}} TL / Gün <br>
-             <b>Renk :</b> {{car.colorName | titlecase}}
-            </h4>
-
-            <div class="container">
-              <button mat-raised-button color="primary" (click)="getRoute(car.carId)" class="btn btn-dark">Detaylar</button>
             </div>
           </div>
-
-
         </div>
-
-
-
-
-
       </div>
-      <h2 *ngIf="control" class="mt-4">Filtreye Uygun Araç Bulunamadı</h2>
-
-
-
     </div>
   </div>
-
 </div>
