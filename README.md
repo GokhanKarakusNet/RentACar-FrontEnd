@@ -17,14 +17,15 @@
 - [Update Car](#update-car)
 - [Rent A Car](#rent-car)
 - [Filter Car](#filter-car)
+- [Search](#filter-car)
 - [Brand](#brand)
 - [Color](#color)
 - [Car Detail](#car-detail)
+- [Add Credit Card](#car-detail)
 
-- [Search](#search)
 - [Register](#register)
-- [Add Credit Card](#add-credit-card)
-- [Unauthorized](#unauthorized)
+- [Unauthorized](#register)
+- [Theme](#theme)
 
 
 
@@ -53,10 +54,8 @@
 ![rent_car](https://user-images.githubusercontent.com/79168352/117524941-9bf86780-afc8-11eb-8dee-cb56b311b785.gif)
 
 
-
 #### Filter car
 ![filter_car](https://user-images.githubusercontent.com/79168352/117525174-a9622180-afc9-11eb-8a37-d713b30ed772.gif)
-
 
 
 #### Brand
@@ -68,6 +67,12 @@
 #### Car Detail
 
 ![car_detail](https://user-images.githubusercontent.com/79168352/117525487-3659aa80-afcb-11eb-8b87-75608086065e.gif)
+
+#### Register
+![register](https://user-images.githubusercontent.com/79168352/117526219-55a50780-afcc-11eb-9530-43502a41cc6f.gif)
+
+#### Theme
+![theme](https://user-images.githubusercontent.com/79168352/117526284-d82dc700-afcc-11eb-8c75-9e3e1ae0974a.gif)
 
 
 <hr>
